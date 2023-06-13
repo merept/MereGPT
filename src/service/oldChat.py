@@ -1,6 +1,7 @@
 import os
 
 from service.selectRoom import room_list
+from service.chat import chat
 
 
 def old_chat(chat_rooms):
@@ -12,13 +13,4 @@ def old_chat(chat_rooms):
     for r in records:
         prefix = '\nInput > ' if r['role'] == 'user' else ''
         print(prefix + r['content'])
-    while True:
-        user_input = input('\nInput > ')
-        if user_input == '':
-            gpt.save()
-            raise KeyError()
-        try:
-            receive = gpt.send(user_input)
-            print(receive)
-        except ConnectionError as e:
-            print(e.args[0])
+    chat(gpt, chat_rooms)

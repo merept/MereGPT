@@ -18,63 +18,6 @@ class MereGPT:
         self.url = url
 
     @property
-    def name(self):
-        return self.__name
-
-    @name.setter
-    def name(self, value):
-        if not value:
-            now = datetime.now().strftime('%m%d%H%M')
-            self.__name = f'NewChat_{now}'
-        else:
-            self.__name = value
-
-    @property
-    def records(self):
-        return self.__records
-
-    @records.setter
-    def records(self, value):
-        if not value:
-            self.__records = []
-        else:
-            self.__records = value
-
-    @property
-    def path(self):
-        return self.__path
-
-    @path.setter
-    def path(self, value):
-        if not value:
-            file_name = self.name.lower().replace(' ', '_')
-            self.__path = f'{file_name}'
-        else:
-            self.__path = value
-
-    @property
-    def api_key(self):
-        return self.__api_key
-
-    @api_key.setter
-    def api_key(self, value):
-        if not value:
-            self.__api_key = self.__default_key
-        else:
-            self.__api_key = value
-
-    @property
-    def url(self):
-        return self.__url
-
-    @url.setter
-    def url(self, value):
-        if not value:
-            self.__url = self.__default_url
-        else:
-            self.__url = value
-
-    @property
     def room_info(self):
         return {
             'name': self.name,
@@ -141,3 +84,60 @@ class MereGPT:
         self.name = new_name
         self.path = new_name.lower().replace(' ', '_')
         self.save()
+
+    @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self, value):
+        if not value:
+            now = datetime.now().strftime('%m%d%H%M')
+            self.__name = f'NewChat_{now}'
+        else:
+            self.__name = value
+
+    @property
+    def records(self):
+        return self.__records
+
+    @records.setter
+    def records(self, value):
+        if not value:
+            self.__records = []
+        else:
+            self.__records = value
+
+    @property
+    def path(self):
+        return self.__path
+
+    @path.setter
+    def path(self, value):
+        if not value:
+            file_name = self.name.lower().replace(' ', '_')
+            self.__path = f'{file_name}'
+        else:
+            self.__path = value
+
+    @property
+    def api_key(self):
+        return self.__api_key
+
+    @api_key.setter
+    def api_key(self, value):
+        if not value:
+            self.__api_key = self.__default_key
+        else:
+            self.__api_key = value
+
+    @property
+    def url(self):
+        return self.__url
+
+    @url.setter
+    def url(self, value):
+        if not value:
+            self.__url = self.__default_url
+        else:
+            self.__url = value

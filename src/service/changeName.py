@@ -12,4 +12,3 @@ def change_name(chat_rooms):
     gpt.change(new_name)
     chat_rooms.change(room, gpt.room_info)
     os.system('cls')
-
