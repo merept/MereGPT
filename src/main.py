@@ -20,7 +20,7 @@ def new_chat():
     chat_rooms.append(gpt.room_info)
     print(f'当前聊天室名称: {gpt.name}')
     while True:
-        user_input = input('Input > ')
+        user_input = input('\nInput > ')
         if user_input == '':
             gpt.save()
             main()
@@ -36,10 +36,10 @@ def old_chat(gpt: MereGPT):
     records = gpt.records
     print(f'当前聊天室名称: {gpt.name}')
     for r in records:
-        prefix = 'Input > ' if r['role'] == 'user' else ''
+        prefix = '\nInput > ' if r['role'] == 'user' else ''
         print(prefix + r['content'])
     while True:
-        user_input = input('Input > ')
+        user_input = input('\nInput > ')
         if user_input == '':
             gpt.save()
             main()
@@ -94,6 +94,19 @@ def change_name(room):
     chat_rooms.change(room, gpt.room_info)
 
 
+def delete(room):
+    os.system('cls')
+    gpt = chat_rooms.gpt(room)
+    print(f'要删除的聊天室: {gpt.name}')
+    confirm = input('是否删除该聊天室?(Y/N)').lower()
+    while confirm != 'y':
+        if confirm in ('n', ''):
+            main()
+        print('输入错误，请重新输入\n')
+        confirm = input('是否清空记录?(Y/N)').lower()
+    chat_rooms.delete(room)
+
+
 def clear():
     os.system('cls')
     confirm = input('是否清空记录?(Y/N)').lower()
@@ -114,7 +127,8 @@ def menu():
           '1.创建新对话\n'
           '2.读取对话记录\n'
           '3.更改聊天室名称\n'
-          '4.清空聊天记录\n'
+          '4.删除聊天室\n'
+          '5.清空聊天记录\n'
           '0.退出')
     s = input('请输入选项 > ')
     if s == '1':
@@ -131,9 +145,14 @@ def menu():
         os.system('cls')
         return 3
     elif s == '4':
-        clear()
+        room = room_list()
+        delete(room)
         os.system('cls')
         return 4
+    elif s == '5':
+        clear()
+        os.system('cls')
+        return 5
     else:
         return 0
 

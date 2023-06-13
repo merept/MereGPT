@@ -39,6 +39,10 @@ class ChatRooms:
         with open(r'..\resource\rooms.json', 'w', encoding='utf-8') as file:
             json.dump(self.__rooms_dict, file, indent=2, ensure_ascii=False)
 
+    def delete(self, index):
+        room = self.__rooms_dict.pop(index)
+        os.remove(fr'..\resource\chats\{room["file"]}.json')
+
     def clear(self):
         for f in self.__rooms_dict:
             os.remove(fr'..\resource\chats\{f["file"]}.json')
