@@ -1,0 +1,6 @@
+{
+  "requests": {
+    "package": "requests",
+    "version": "2.30.0"
+  }
+}
