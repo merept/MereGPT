@@ -9,7 +9,8 @@ class MereGPT:
     __default_key = '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'
     __default_url = 'https://service-1x003fok-1318250575.hk.apigw.tencentcs.com/v1/chat/completions'
 
-    def __init__(self, name: str = None, records: list = None, path: str = None, api_key: str = None, url: str = None):
+    def __init__(self, name: str = None, records: list = None, path: str = None,
+                 api_key: str = None, url: str = None):
         self.name = name
         self.records = records
         self.path = path
@@ -89,11 +90,21 @@ class MereGPT:
 
     @property
     def data(self):
+        reduce = self.check_length(-len(self.records))
         return {
             "model": "gpt-3.5-turbo",
-            "messages": self.records,
+            "messages": self.records[reduce:],
             "max_tokens": 2048
         }
+
+    def check_length(self, reduce):
+        if abs(reduce) > 40:
+            reduce = -40
+        length = len(str(self.records[reduce:]))
+        if length >= 2048:
+            return self.check_length(reduce + 1)
+        else:
+            return reduce
 
     def receive(self, record):
         self.records.append(record)
@@ -108,10 +119,13 @@ class MereGPT:
             self.receive(result)
             return result["content"]
         elif response.status_code == 429:
+            del self.records[-1]
             raise ConnectionError(
                 "短时间内请求次数太多。\n本程序默认 API Key 为免费使用，使用频率被限制为 3 次/分钟。请 20 秒之后重试")
         else:
-            raise ConnectionError("请求失败")
+            del self.records[-1]
+            error_message = response.json()["error"]["message"]
+            raise ConnectionError(f"请求失败: Error {response.status_code}\n{error_message}")
 
     def save(self):
         chat = {
