@@ -42,6 +42,7 @@ class ChatRooms:
     def delete(self, index):
         room = self.__rooms_dict.pop(index)
         os.remove(fr'..\resource\chats\{room["file"]}.json')
+        self.save()
 
     def clear(self):
         for f in self.__rooms_dict:
