@@ -1,3 +1,5 @@
+import os
+
 from .gpt import MereGPT
 import json
 
@@ -11,6 +13,10 @@ class ChatRooms:
         return rooms
 
     def __init__(self):
+        if not os.path.exists(r'..\resource\rooms.json'):
+            self.__rooms_dict = []
+            with open(r'..\resource\rooms.json', 'w', encoding='utf-8') as file:
+                json.dump(self.__rooms_dict, file, indent=2, ensure_ascii=False)
         with open(r'..\resource\rooms.json', 'r', encoding='utf-8') as file:
             self.__rooms_dict = json.load(file)
 
@@ -32,4 +38,10 @@ class ChatRooms:
     def save(self):
         with open(r'..\resource\rooms.json', 'w', encoding='utf-8') as file:
             json.dump(self.__rooms_dict, file, indent=2, ensure_ascii=False)
+
+    def clear(self):
+        for f in self.__rooms_dict:
+            os.remove(fr'..\resource\chats\{f["file"]}.json')
+        self.__rooms_dict = []
+        self.save()
 

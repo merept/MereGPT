@@ -50,22 +50,25 @@ def old_chat(gpt: MereGPT):
             print(e.args[0])
 
 
-def select_room(max_index):
-    while True:
-        try:
-            select = int(input('输入选项 > '))
-            if max_index >= select >= 1:
-                return select
-        except ValueError:
-            pass
-        print('输入错误，请重新输入')
-
-
 def none_records():
     os.system('cls')
     print('当前没有聊天记录')
     input()
     main()
+
+
+def select_room(max_index):
+    while True:
+        try:
+            s = input('输入选项 > ')
+            if s == '':
+                return -1
+            select = int(s)
+            if max_index >= select >= 1:
+                return select
+        except ValueError:
+            pass
+        print('输入错误，请重新输入')
 
 
 def room_list():
@@ -76,7 +79,10 @@ def room_list():
         none_records()
     for i, r in enumerate(rooms):
         print(f'{i + 1}.{r}')
-    return select_room(len(rooms)) - 1
+    room = select_room(len(rooms))
+    if room == -1:
+        main()
+    return room - 1
 
 
 def change_name(room):
@@ -88,11 +94,27 @@ def change_name(room):
     chat_rooms.change(room, gpt.room_info)
 
 
+def clear():
+    os.system('cls')
+    confirm = input('是否清空记录?(Y/N)').lower()
+    while confirm != 'y':
+        if confirm in ('n', ''):
+            main()
+        print('输入错误，请重新输入\n')
+        confirm = input('是否清空记录?(Y/N)').lower()
+    chat_rooms.clear()
+
+
 def menu():
-    print('欢迎使用 MereGPT\n'
+    line = '-' * 50
+    print(f'{line}\n\n'
+          '欢迎使用 MereGPT\n'
+          '提示: 在任意输入位置直接回车可以返回上一级\n\n'
+          f'{line}\n'
           '1.创建新对话\n'
           '2.读取对话记录\n'
           '3.更改聊天室名称\n'
+          '4.清空聊天记录\n'
           '0.退出')
     s = input('请输入选项 > ')
     if s == '1':
@@ -108,6 +130,10 @@ def menu():
         change_name(room)
         os.system('cls')
         return 3
+    elif s == '4':
+        clear()
+        os.system('cls')
+        return 4
     else:
         return 0
 
