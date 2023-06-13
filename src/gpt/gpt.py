@@ -1,8 +1,8 @@
 import json
 import os
+from datetime import datetime
 
 import requests
-from datetime import datetime
 
 
 class MereGPT:

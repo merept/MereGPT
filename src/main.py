@@ -17,12 +17,12 @@ chat_rooms = ChatRooms()
 def new_chat():
     os.system('cls')
     gpt = MereGPT()
-    chat_rooms.append(gpt.room_info)
     print(f'当前聊天室名称: {gpt.name}')
     while True:
         user_input = input('\nInput > ')
         if user_input == '':
             gpt.save()
+            chat_rooms.append(gpt.room_info)
             main()
         try:
             receive = gpt.send(user_input)

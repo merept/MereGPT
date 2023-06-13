@@ -1,7 +1,7 @@
+import json
 import os
 
 from .gpt import MereGPT
-import json
 
 
 class ChatRooms:
@@ -48,4 +48,3 @@ class ChatRooms:
             os.remove(fr'..\resource\chats\{f["file"]}.json')
         self.__rooms_dict = []
         self.save()
-
