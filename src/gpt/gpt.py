@@ -26,7 +26,7 @@ class MereGPT:
         }
 
     @property
-    def headers(self):
+    def __headers(self):
         return {
             'Accept': 'text/event-stream',
             'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ class MereGPT:
         }
 
     @property
-    def data(self):
+    def __data(self):
         reduce = self.check_length(-len(self.records))
         return {
             "model": "gpt-3.5-turbo-16k-0613",
@@ -52,14 +52,14 @@ class MereGPT:
         else:
             return reduce
 
-    def receive(self, record):
+    def __receive(self, record):
         response = {
             'role': 'assistant',
             'content': record
         }
         self.records.append(response)
 
-    def print(self, client: SSEClient):
+    def __print(self, client: SSEClient):
         result = ''
         print('\033[34mGPT\033[0m > ', end='')
         for event in client.events():
@@ -71,16 +71,16 @@ class MereGPT:
                 result += content
                 print(content, end="", flush=True)
         print()
-        self.receive(result)
+        self.__receive(result)
 
     def send(self, record):
         self.records.append({"role": "user", "content": record})
 
-        response = requests.post(self.url, stream=True, headers=self.headers, json=self.data)
+        response = requests.post(self.url, stream=True, headers=self.__headers, json=self.__data)
         client = SSEClient(response)
 
         if response.status_code == 200:
-            self.print(client)
+            self.__print(client)
         elif response.status_code == 429:
             del self.records[-1]
             raise ConnectionError(
