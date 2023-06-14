@@ -76,8 +76,12 @@ class MereGPT:
     def send(self, record):
         self.records.append({"role": "user", "content": record})
 
-        response = requests.post(self.url, stream=True, headers=self.__headers, json=self.__data)
-        client = SSEClient(response)
+        try:
+            response = requests.post(self.url, stream=True, headers=self.__headers, json=self.__data)
+            client = SSEClient(response)
+        except requests.exceptions.ConnectionError:
+            del self.records[-1]
+            raise ConnectionError('请求失败:\n网络连接超时，请检查网络')
 
         if response.status_code == 200:
             self.__print(client)
