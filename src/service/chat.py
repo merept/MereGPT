@@ -1,8 +1,5 @@
-import json
-
 from gpt.gpt import MereGPT
 from gpt.room import ChatRooms
-from sseclient import SSEClient
 
 
 def chat(gpt: MereGPT, chat_rooms: ChatRooms, new: bool = False):

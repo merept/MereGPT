@@ -59,30 +59,32 @@ class MereGPT:
         }
         self.records.append(response)
 
+    def print(self, client: SSEClient):
+        result = ''
+        print('\033[34mGPT\033[0m > ', end='')
+        for event in client.events():
+            if event.data == '[DONE]':
+                break
+            data = json.loads(event.data)['choices'][0]
+            if not data['finish_reason']:
+                content = data["delta"]['content']
+                result += content
+                print(content, end="", flush=True)
+        print()
+        self.receive(result)
+
     def send(self, record):
         self.records.append({"role": "user", "content": record})
 
-        # response = requests.post(self.url, stream=True, headers=self.headers, json={'prompt': record})
         response = requests.post(self.url, stream=True, headers=self.headers, json=self.data)
         client = SSEClient(response)
 
         if response.status_code == 200:
-            result = ''
-            print('\033[34mGPT\033[0m > ', end='')
-            for event in client.events():
-                if event.data == '[DONE]':
-                    break
-                data = json.loads(event.data)['choices'][0]
-                if not data['finish_reason']:
-                    content = data["delta"]['content']
-                    result += content
-                    print(content, end="", flush=True)
-            print()
-            self.receive(result)
+            self.print(client)
         elif response.status_code == 429:
             del self.records[-1]
             raise ConnectionError(
-                "短时间内请求次数太多。\n本程序默认 API Key 为免费使用，使用频率被限制为 3 次/分钟。请 20 秒之后重试")
+                "短时间内请求次数太多。\n本程序默认 API Key 为免费使用，使用频率被限制为 60 次/分钟。")
         else:
             del self.records[-1]
             error_message = response.json()["error"]["message"]
