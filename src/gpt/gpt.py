@@ -58,6 +58,7 @@ class MereGPT:
             'content': record
         }
         self.records.append(response)
+        self.save()
 
     def __print(self, client: SSEClient):
         result = ''
