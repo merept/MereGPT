@@ -2,5 +2,9 @@
   "requests": {
     "package": "requests",
     "version": "2.30.0"
+  },
+  "sseclient": {
+    "package": "sseclient-py",
+    "version": "1.7.2"
   }
 }

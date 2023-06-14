@@ -3,6 +3,7 @@ import os
 from datetime import datetime
 
 import requests
+from sseclient import SSEClient
 
 
 class MereGPT:
@@ -27,17 +28,19 @@ class MereGPT:
     @property
     def headers(self):
         return {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {self.api_key}"
+            'Accept': 'text/event-stream',
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {self.api_key}'
         }
 
     @property
     def data(self):
         reduce = self.check_length(-len(self.records))
         return {
-            "model": "gpt-3.5-turbo",
+            "model": "gpt-3.5-turbo-16k-0613",
             "messages": self.records[reduce:],
-            "max_tokens": 2048
+            "max_tokens": 2048,
+            "stream": True
         }
 
     def check_length(self, reduce):
@@ -50,17 +53,32 @@ class MereGPT:
             return reduce
 
     def receive(self, record):
-        self.records.append(record)
+        response = {
+            'role': 'assistant',
+            'content': record
+        }
+        self.records.append(response)
 
     def send(self, record):
         self.records.append({"role": "user", "content": record})
 
-        response = requests.post(self.url, headers=self.headers, json=self.data)
+        # response = requests.post(self.url, stream=True, headers=self.headers, json={'prompt': record})
+        response = requests.post(self.url, stream=True, headers=self.headers, json=self.data)
+        client = SSEClient(response)
 
         if response.status_code == 200:
-            result = response.json()["choices"][0]["message"]
+            result = ''
+            print('\033[34mGPT\033[0m > ', end='')
+            for event in client.events():
+                if event.data == '[DONE]':
+                    break
+                data = json.loads(event.data)['choices'][0]
+                if not data['finish_reason']:
+                    content = data["delta"]['content']
+                    result += content
+                    print(content, end="", flush=True)
+            print()
             self.receive(result)
-            return result["content"]
         elif response.status_code == 429:
             del self.records[-1]
             raise ConnectionError(

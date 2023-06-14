@@ -11,6 +11,6 @@ def old_chat(chat_rooms):
     records = gpt.records
     print(f'当前聊天室名称: {gpt.name}')
     for r in records:
-        prefix = '\nInput > ' if r['role'] == 'user' else ''
+        prefix = '\n\033[32mUser\033[0m > ' if r['role'] == 'user' else '\033[34mGPT\033[0m > '
         print(prefix + r['content'])
     chat(gpt, chat_rooms)
