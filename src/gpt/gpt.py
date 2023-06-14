@@ -35,7 +35,7 @@ class MereGPT:
 
     @property
     def __data(self):
-        reduce = self.check_length(-len(self.records))
+        reduce = self.__check_length(-len(self.records))
         return {
             "model": "gpt-3.5-turbo-16k-0613",
             "messages": self.records[reduce:],
@@ -43,12 +43,12 @@ class MereGPT:
             "stream": True
         }
 
-    def check_length(self, reduce):
+    def __check_length(self, reduce):
         if abs(reduce) > 40:
             reduce = -40
         length = len(str(self.records[reduce:]))
         if length >= 2048:
-            return self.check_length(reduce + 1)
+            return self.__check_length(reduce + 1)
         else:
             return reduce
 
