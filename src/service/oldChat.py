@@ -13,4 +13,4 @@ def old_chat(chat_rooms):
     for r in records:
         prefix = '\n\033[32mUser\033[0m' if r['role'] == 'user' else '\033[34mGPT\033[0m'
         print(f'{prefix} > {r["content"]}')
-    chat(gpt, chat_rooms)
+    chat(gpt)

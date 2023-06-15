@@ -2,13 +2,11 @@ from gpt.gpt import MereGPT
 from gpt.room import ChatRooms
 
 
-def chat(gpt: MereGPT, chat_rooms: ChatRooms, new: bool = False):
+def chat(gpt: MereGPT):
     while True:
         user_input = input('\n\033[32mUser\033[0m > ')
         if user_input == '':
             gpt.save()
-            if new:
-                chat_rooms.append(gpt.room_info)
             raise KeyError()
         try:
             gpt.send(user_input)
