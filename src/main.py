@@ -11,7 +11,7 @@ def main():
             selection = menu()
         exit(0)
     except Exception as e:
-        print(f'出错: {e}\n按任意键继续...')
+        print(f'出错: {e.args[0]}\n按任意键继续...')
         input()
         main()
     except KeyError:
