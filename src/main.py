@@ -10,6 +10,10 @@ def main():
         while selection != 0:
             selection = menu()
         exit(0)
+    except Exception as e:
+        print(f'出错: {e}\n按任意键继续...')
+        input()
+        main()
     except KeyError:
         main()
 
