@@ -2,29 +2,21 @@ import os
 
 from gpt.room import ChatRooms
 from service import newChat, oldChat, changeName, deleteChat, clearCache
-
-try:
-    os.chdir(r'.\src')
-    if not os.path.exists(r'../resource/chats'):
-        os.mkdir(r'../resource/chats')
-except FileNotFoundError:
-    pass
-
-chat_rooms = ChatRooms()
+from setting import setting
 
 
 def select():
     while True:
         try:
             s = int(input('请输入选项 > '))
-            if 5 >= s >= 0:
+            if 6 >= s >= 0:
                 return s
         except ValueError:
             pass
         print('输入错误，请重新输入\n')
 
 
-def execute(s):
+def execute(s, chat_rooms):
     if s == 1:
         newChat.new_chat(chat_rooms)
     elif s == 2:
@@ -35,10 +27,13 @@ def execute(s):
         deleteChat.delete(chat_rooms)
     elif s == 5:
         clearCache.clear(chat_rooms)
+    elif s == 6:
+        setting.main()
     return s
 
 
 def menu():
+    chat_rooms = ChatRooms()
     line = '-' * 50
     print(f'{line}\n\n'
           '欢迎使用 MereGPT\n'
@@ -49,6 +44,7 @@ def menu():
           '3.更改聊天室名称\n'
           '4.删除聊天室\n'
           '5.清空聊天记录\n'
+          '6.设置\n'
           '0.退出')
     s = select()
-    return execute(s)
+    return execute(s, chat_rooms)

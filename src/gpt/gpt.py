@@ -9,14 +9,16 @@ from sseclient import SSEClient
 class MereGPT:
     __default_key = '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'
     __default_url = 'https://service-1x003fok-1318250575.hk.apigw.tencentcs.com/v1/chat/completions'
+    __default_gpt = 'gpt-3.5-turbo-0613'
 
     def __init__(self, name: str = None, records: list = None, path: str = None,
-                 api_key: str = None, url: str = None):
+                 api_key: str = None, url: str = None, gpt: str = None):
         self.name = name
         self.records = records
         self.path = path
         self.api_key = api_key
         self.url = url
+        self.gpt = gpt
 
     @property
     def room_info(self):
@@ -37,7 +39,7 @@ class MereGPT:
     def __data(self):
         reduce = self.__check_length(-len(self.records))
         return {
-            "model": "gpt-3.5-turbo-16k-0613",
+            "model": self.gpt,
             "messages": self.records[reduce:],
             "max_tokens": 2048,
             "stream": True
@@ -101,11 +103,11 @@ class MereGPT:
             "records": self.records
         }
 
-        with open(fr'..\resource\chats\{self.path}.json', 'w', encoding='utf-8') as file:
+        with open(fr'.\resource\chats\{self.path}.json', 'w', encoding='utf-8') as file:
             json.dump(chat, file, indent=2, ensure_ascii=False)
 
     def change(self, new_name):
-        os.remove(fr'..\resource\chats\{self.path}.json')
+        os.remove(fr'.\resource\chats\{self.path}.json')
         self.name = new_name
         self.path = new_name.lower().replace(' ', '_')
         self.save()
@@ -166,3 +168,14 @@ class MereGPT:
             self.__url = self.__default_url
         else:
             self.__url = value
+
+    @property
+    def gpt(self):
+        return self.__gpt
+
+    @gpt.setter
+    def gpt(self, value):
+        if not value:
+            self.__gpt = self.__default_gpt
+        else:
+            self.__gpt = value
