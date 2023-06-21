@@ -3,7 +3,6 @@ from gpt.room import ChatRooms
 
 
 def chat(gpt: MereGPT):
-    print(gpt.gpt)
     while True:
         user_input = input('\n\033[32mUser\033[0m > ')
         if user_input == '':
