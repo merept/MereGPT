@@ -14,5 +14,5 @@ def new_chat(chat_rooms:ChatRooms):
     )
     gpt.save()
     chat_rooms.append(gpt.room_info)
-    print(f'当前聊天室名称: {gpt.name}\n')
+    print(f'当前聊天室名称: {gpt.name}')
     chat(gpt)
