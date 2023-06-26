@@ -2,7 +2,7 @@ import os
 
 from service.confirm import confirm
 
-units = ['Bytes', 'KB', 'MB']
+units = ('Bytes', 'KB', 'MB')
 
 
 def alternate_units(num, index=0):
