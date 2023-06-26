@@ -7,7 +7,7 @@ def select():
         try:
             s = input('请输入选项 > ')
             if s == '':
-                raise KeyError
+                raise KeyError('setting')
             s = int(s)
             if 1 >= s >= 1:
                 return s
@@ -23,8 +23,16 @@ def execute(s):
 
 
 def main():
-    os.system('cls')
-    print('1.设置 GPT 模型')
-    s = select()
-    execute(s)
-    os.system('cls')
+    while True:
+        try:
+            os.system('cls')
+            print('1.设置 GPT 模型')
+            s = select()
+            execute(s)
+        except KeyError as e:
+            if e.args[0] == 'setting':
+                raise
+            else:
+                pass
+        finally:
+            os.system('cls')

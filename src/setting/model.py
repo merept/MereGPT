@@ -7,7 +7,7 @@ def select():
         try:
             s = input('请输入选项 > ')
             if s == '':
-                raise KeyError
+                raise KeyError('model')
             s = int(s)
             if 2 >= s >= 1:
                 return s

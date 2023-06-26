@@ -11,12 +11,16 @@ def main():
             selection = menu()
         exit(0)
     except KeyError:
-        main()
+        raise
     except Exception as e:
-        print(f'出错: {e.args[0]}\n按任意键继续...')
+        print(f'出错: {e}\n按任意键继续...')
         input()
         main()
 
 
 if __name__ == '__main__':
-    main()
+    while True:
+        try:
+            main()
+        except KeyError:
+            pass
