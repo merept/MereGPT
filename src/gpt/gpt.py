@@ -46,10 +46,10 @@ class MereGPT:
         }
 
     def __check_length(self, reduce):
-        if abs(reduce) > 40:
-            reduce = -40
+        if abs(reduce) > 20:
+            reduce = -20
         length = len(str(self.records[reduce:]))
-        if length >= 2048:
+        if length >= 1024:
             return self.__check_length(reduce + 1)
         else:
             return reduce
@@ -91,7 +91,7 @@ class MereGPT:
         elif response.status_code == 429:
             del self.records[-1]
             raise ConnectionError(
-                "短时间内请求次数太多。\n本程序默认 API Key 为免费使用，使用频率被限制为 60 次/分钟。")
+                "短时间内请求次数太多。\n本程序默认 API Key 为免费使用，使用频率被限制为 3 次/分钟，请 20 秒之后重试。")
         else:
             del self.records[-1]
             error_message = response.json()["error"]["message"]
