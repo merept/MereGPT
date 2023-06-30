@@ -33,6 +33,7 @@ def execute(s, chat_rooms):
 
 
 def menu():
+    os.system('title MereGPT')
     chat_rooms = ChatRooms()
     line = '-' * 50
     print(f'{line}\n\n'

@@ -26,6 +26,7 @@ def main():
     while True:
         try:
             os.system('cls')
+            os.system('title 设置')
             print('1.设置 GPT 模型')
             s = select()
             execute(s)

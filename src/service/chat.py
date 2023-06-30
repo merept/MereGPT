@@ -1,5 +1,6 @@
+import os
+
 from gpt.gpt import MereGPT
-from gpt.room import ChatRooms
 
 
 def chat(gpt: MereGPT):

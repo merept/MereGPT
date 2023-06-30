@@ -18,6 +18,7 @@ def select():
 
 def select_model():
     os.system('cls')
+    os.system('title 配置 GPT 模型')
     models = ['gpt-3.5-turbo-0613', 'gpt-3.5-turbo-16k-0613']
     with open(r'.\resource\config.json', 'r', encoding='utf-8') as file:
         config = json.load(file)
