@@ -22,6 +22,8 @@ def main():
 
 
 if __name__ == '__main__':
+    if not os.path.exists(r'.\resource\chats'):
+        os.mkdir(r'.\resource\chats')
     while True:
         try:
             main()
