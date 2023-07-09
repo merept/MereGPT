@@ -89,8 +89,15 @@ class MereGPT:
             self.__print(client)
         elif response.status_code == 429:
             del self.records[-1]
-            raise ConnectionError(
-                "短时间内请求次数太多。\n本程序默认 API Key 为免费使用，使用频率被限制为 3 次/分钟，请 20 秒之后重试。")
+            error_message = response.json()["error"]["message"]
+            if 'rate limit' in error_message.lower():
+                raise ConnectionError("短时间内请求次数太多，请稍后 (一般为 20 秒) 重试。")
+            elif 'plan and billing details' in error_message.lower():
+                raise ConnectionError(
+                    "您的 API 用量已不足。\n请前往 OpenAI 官网检查您账户中订阅和计费的详细情况。")
+            else:
+                raise ConnectionError(f"请求失败: Error {response.status_code}\n{error_message}")
+
         else:
             del self.records[-1]
             error_message = response.json()["error"]["message"]
