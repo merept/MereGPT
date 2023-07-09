@@ -8,7 +8,10 @@ from setting import setting
 def select():
     while True:
         try:
-            s = int(input('请输入选项 > '))
+            s = input('请输入选项 > ')
+            if s == '':
+                raise KeyboardInterrupt()
+            s = int(s)
             if 6 >= s >= 0:
                 return s
         except ValueError:

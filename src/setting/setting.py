@@ -7,7 +7,7 @@ def select():
         try:
             s = input('请输入选项 > ')
             if s == '':
-                raise KeyError('setting')
+                raise KeyboardInterrupt('setting')
             s = int(s)
             if 2 >= s >= 1:
                 return s
@@ -32,7 +32,7 @@ def main():
             print('1.设置 GPT 模型\n2.设置 API Key')
             s = select()
             execute(s)
-        except KeyError as e:
+        except KeyboardInterrupt as e:
             if e.args[0] == 'setting':
                 raise
             else:

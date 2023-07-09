@@ -11,7 +11,7 @@ def main():
         while selection != 0:
             selection = menu()
         exit(0)
-    except KeyError:
+    except KeyboardInterrupt:
         raise
     except ValueError:
         raise
@@ -25,7 +25,7 @@ if __name__ == '__main__':
     while True:
         try:
             main()
-        except KeyError:
+        except KeyboardInterrupt:
             pass
         except ValueError:
             api_key(True)

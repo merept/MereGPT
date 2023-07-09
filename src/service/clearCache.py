@@ -27,6 +27,6 @@ def clear(chat_rooms):
     os.system('title 清除聊天记录')
     print(f'当前占用空间 {get_size()}')
     if not confirm('是否清空记录?(Y/N)'):
-        raise KeyError()
+        raise KeyboardInterrupt()
     chat_rooms.clear()
     os.system('cls')
