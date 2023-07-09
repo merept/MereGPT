@@ -12,7 +12,7 @@ def api_key(is_first_time=False):
         if is_first_time:
             return
         else:
-            raise KeyError('setting')
+            raise KeyError('apiKey')
     with open(r'.\resource\config.json', 'r', encoding='utf-8') as file:
         config = json.load(file)
     config['apiKey'] = new_api_key
