@@ -7,18 +7,17 @@ from sseclient import SSEClient
 
 
 class MereGPT:
-    __default_key = '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'
     __default_url = 'https://service-1x003fok-1318250575.hk.apigw.tencentcs.com/v1/chat/completions'
     __default_gpt = 'gpt-3.5-turbo-0613'
 
     def __init__(self, name: str = None, records: list = None, path: str = None,
-                 api_key: str = None, url: str = None, gpt: str = None):
+                 api_key: str = None, url: str = None, model: str = None):
         self.name = name
         self.records = records
         self.path = path
         self.api_key = api_key
         self.url = url
-        self.gpt = gpt
+        self.model = model
 
     @property
     def room_info(self):
@@ -39,7 +38,7 @@ class MereGPT:
     def __data(self):
         reduce = self.__check_length(-len(self.records))
         return {
-            "model": self.gpt,
+            "model": self.model,
             "messages": self.records[reduce:],
             "max_tokens": 2048,
             "stream": True
@@ -154,7 +153,7 @@ class MereGPT:
     @api_key.setter
     def api_key(self, value):
         if not value:
-            self.__api_key = self.__default_key
+            raise ValueError()
         else:
             self.__api_key = value
 
@@ -170,12 +169,12 @@ class MereGPT:
             self.__url = value
 
     @property
-    def gpt(self):
-        return self.__gpt
+    def model(self):
+        return self.__model
 
-    @gpt.setter
-    def gpt(self, value):
+    @model.setter
+    def model(self, value):
         if not value:
-            self.__gpt = self.__default_gpt
+            self.__model = self.__default_gpt
         else:
-            self.__gpt = value
+            self.__model = value

@@ -1,4 +1,4 @@
-from . import model
+from . import model, apiKey
 import os
 
 
@@ -9,7 +9,7 @@ def select():
             if s == '':
                 raise KeyError('setting')
             s = int(s)
-            if 1 >= s >= 1:
+            if 2 >= s >= 1:
                 return s
         except ValueError:
             pass
@@ -19,6 +19,8 @@ def select():
 def execute(s):
     if s == 1:
         model.select_model()
+    elif s == 2:
+        apiKey.api_key()
     return s
 
 
@@ -27,7 +29,7 @@ def main():
         try:
             os.system('cls')
             os.system('title 设置')
-            print('1.设置 GPT 模型')
+            print('1.设置 GPT 模型\n2.设置 API Key')
             s = select()
             execute(s)
         except KeyError as e:

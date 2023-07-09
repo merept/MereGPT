@@ -21,6 +21,8 @@ class ChatRooms:
             self.__rooms_dict = json.load(file)
         with open(r'.\resource\config.json', 'r', encoding='utf-8') as file:
             self.config = json.load(file)
+        if not self.config['apiKey']:
+            raise ValueError()
 
     # def configure(self, init=False):
     #     if init:

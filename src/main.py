@@ -1,6 +1,7 @@
 import os
 
 from service.menu import menu
+from setting.apiKey import api_key
 
 
 def main():
@@ -11,6 +12,8 @@ def main():
             selection = menu()
         exit(0)
     except KeyError:
+        raise
+    except ValueError:
         raise
     except Exception as e:
         print(f'出错: {e}\n按任意键继续...')
@@ -24,3 +27,5 @@ if __name__ == '__main__':
             main()
         except KeyError:
             pass
+        except ValueError:
+            api_key(True)
