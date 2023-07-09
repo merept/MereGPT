@@ -97,7 +97,6 @@ class MereGPT:
                     "您的 API 用量已不足。\n请前往 OpenAI 官网检查您账户中订阅和计费的详细情况。")
             else:
                 raise ConnectionError(f"请求失败: Error {response.status_code}\n{error_message}")
-
         else:
             del self.records[-1]
             error_message = response.json()["error"]["message"]
