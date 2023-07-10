@@ -1,7 +1,7 @@
 import os
 
 from service.menu import menu
-from setting.apiKey import api_key
+from setting.apiKey import set_key
 
 
 def main():
@@ -30,4 +30,4 @@ if __name__ == '__main__':
         except KeyboardInterrupt:
             pass
         except ValueError:
-            api_key(True)
+            set_key(True)

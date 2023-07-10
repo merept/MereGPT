@@ -7,7 +7,7 @@ from sseclient import SSEClient
 
 
 class MereGPT:
-    __default_url = 'https://service-1x003fok-1318250575.hk.apigw.tencentcs.com/v1/chat/completions'
+    __default_url = 'https://api.openai.com/v1/chat/completions'
     __default_gpt = 'gpt-3.5-turbo-0613'
 
     def __init__(self, name: str = None, records: list = None, path: str = None,

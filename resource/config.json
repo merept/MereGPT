@@ -1,5 +1,5 @@
 {
   "apiKey": "",
-  "proxyUrl": "https://service-1x003fok-1318250575.hk.apigw.tencentcs.com/v1/chat/completions",
+  "proxyUrl": "",
   "model": "gpt-3.5-turbo-0613"
 }

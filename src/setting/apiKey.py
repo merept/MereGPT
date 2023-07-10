@@ -2,7 +2,7 @@ import json
 import os
 
 
-def api_key(is_first_time=False):
+def set_key(is_first_time=False):
     os.system('cls')
     os.system('title 配置 API Key')
     if is_first_time:
