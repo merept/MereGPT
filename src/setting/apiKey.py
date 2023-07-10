@@ -6,7 +6,7 @@ def api_key(is_first_time=False):
     os.system('cls')
     os.system('title 配置 API Key')
     if is_first_time:
-        print('在开始前，您需要先配置您的API Key')
+        print('在开始前，您需要先配置您的 API Key')
     new_api_key = input('请输入您的 API Key > ')
     if new_api_key == '':
         if is_first_time:

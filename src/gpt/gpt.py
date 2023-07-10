@@ -45,7 +45,7 @@ class MereGPT:
         }
 
     def __check_length(self, reduce):
-        if abs(reduce) > 20:
+        if reduce < -20:
             reduce = -20
         length = len(str(self.records[reduce:]))
         if length >= 1024:
