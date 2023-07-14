@@ -18,6 +18,6 @@
   "src/setting/proxyUrl.py",
   "src/setting/setting.py",
   "src/main.py",
-  "src/checkModules.py",
+  "src/checkModule.py",
   "resource/modules.json"
 ]

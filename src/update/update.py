@@ -27,9 +27,9 @@ def update(path, is_existed=True):
     if is_existed:
         print(f'正在移除文件 {path}')
         os.remove(l_file)
-    path = str.join('/', l_file.split('/')[:-1])
-    if not os.path.exists(path):
-        os.mkdir(path)
+    base_path = str.join('/', l_file.split('/')[:-1])
+    if not os.path.exists(base_path):
+        os.mkdir(base_path)
     print(f'正在下载文件 {path}')
     o_file = requests.get(f'{base_url}/{path}')
     with open(l_file, 'w') as file:
@@ -60,6 +60,7 @@ def main():
 
 
 if __name__ == '__main__':
+    os.chdir(r'..\..')
     os.system('cls')
     os.system('title MereGPT 更新中')
     main()
