@@ -1,0 +1,25 @@
+import os
+import json
+
+from service.confirm import confirm
+
+
+def change():
+    os.system('cls')
+    os.system('title 设置测试版')
+    with open(r'.\resource\config.json', 'r', encoding='utf-8') as file:
+        config = json.load(file)
+        try:
+            dev_now = config['dev']
+        except KeyError:
+            config['dev'] = False
+            dev_now = config['dev']
+    dev_now_str = "是" if dev_now else "否"
+    dev_change_edi = "发行版" if dev_now else "测试版"
+    print(f'当前是否开启测试版更新: {dev_now_str}')
+    if confirm(f'是否更改为{dev_change_edi}?(Y/N)'):
+        config['dev'] = not dev_now
+    else:
+        raise KeyboardInterrupt('devEdition')
+    with open(r'.\resource\config.json', 'w', encoding='utf-8') as file:
+        json.dump(config, file, ensure_ascii=False, indent=2)

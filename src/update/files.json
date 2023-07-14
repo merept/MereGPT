@@ -14,6 +14,7 @@
   "src/service/selectRoom.py",
   "src/setting/__init__.py",
   "src/setting/apiKey.py",
+  "src/setting/devEdition.py",
   "src/setting/model.py",
   "src/setting/proxyUrl.py",
   "src/setting/setting.py",
