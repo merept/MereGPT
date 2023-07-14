@@ -11,12 +11,6 @@ def get_current_url(config):
     return current_url
 
 
-def is_default_or_return():
-    if confirm('是否将代理地址设为默认?(Y/N)'):
-        return True
-    return False
-
-
 def set_url():
     os.system('cls')
     os.system('title 配置代理地址')
@@ -25,7 +19,7 @@ def set_url():
     print(f'当前代理地址: {get_current_url(config)}')
     new_url = input('请输入您的代理地址 > ')
     if new_url == '':
-        if not is_default_or_return():
+        if not confirm('是否将代理地址设为默认?(Y/N)'):
             raise KeyboardInterrupt('proxyUrl')
     config['proxyUrl'] = new_url
     with open(r'.\resource\config.json', 'w', encoding='utf-8') as file:
