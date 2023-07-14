@@ -56,7 +56,6 @@ def main():
         oh = online_hash(f'{base_url}/{file}')
         if lh != oh:
             update(file)
-    return False
 
 
 if __name__ == '__main__':

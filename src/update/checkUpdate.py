@@ -51,8 +51,11 @@ def main():
             if confirm('检测到更新，是否更新?(Y/N)'):
                 raise Update('update')
             else:
-                return False
-    return False
+                raise KeyboardInterrupt('update')
+    os.system('cls')
+    print('暂无更新')
+    input()
+    raise KeyboardInterrupt('update')
 
 
 class Update(Exception):
