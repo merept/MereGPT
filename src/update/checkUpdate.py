@@ -61,13 +61,3 @@ def main():
 class Update(Exception):
     def __init__(self, message):
         self.message = message
-
-
-if __name__ == '__main__':
-    online = 'https://raw.githubusercontent.com/merept/CharCounter/master/src/service/count.py'
-    local = r"D:/Coding/Python/CharCounter/src/service/count.py"
-    l = local_hash(local)
-    o = online_hash(online)
-    print(f'local: {l}')
-    print(f'online: {o}')
-    print(l == o)
