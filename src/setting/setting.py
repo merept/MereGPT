@@ -53,7 +53,7 @@ def main():
                   '2.设置 API Key\n'
                   '3.设置代理地址\n'
                   '4.获取测试版更新\n'
-                  '5.检查更新')
+                  '5.检查更新(检查文件完整性)')
             s = select()
             execute(s)
         except KeyboardInterrupt as e:
