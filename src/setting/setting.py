@@ -3,7 +3,7 @@ from update import checkUpdate
 import os
 
 app = {
-    'version': '0.16.3',
+    'version': '0.16.4',
     'author': 'MerePT',
     'license': 'MIT'
 }
@@ -42,13 +42,13 @@ def main():
         try:
             os.system('cls')
             os.system('title 设置')
-            print('------------------------------------------------\n'
+            print(f'{"-" * 50}\n'
                   '\n'
                   f'应用程序版本: v{app["version"]}\n'
                   f'作者: {app["author"]}\n'
                   f'许可证: {app["license"]}\n'
                   f'\n'
-                  '------------------------------------------------\n'
+                  f'{"-" * 50}\n'
                   '1.设置 GPT 模型\n'
                   '2.设置 API Key\n'
                   '3.设置代理地址\n'

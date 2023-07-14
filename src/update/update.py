@@ -78,7 +78,7 @@ if __name__ == '__main__':
     os.system('cls')
     os.system('title MereGPT 更新中')
     try:
-        main()
+        requests.get(base_url)
     except requests.exceptions.SSLError:
         base_url = gitee_url
-        main()
+    main()
