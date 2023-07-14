@@ -37,6 +37,8 @@ def online_hash(url):
 
 
 def local_hash(path):
+    if not os.path.exists(path):
+        return ''
     sha = hashlib.sha256()
     with open(path, 'rb') as f:
         content = f.read().decode()
