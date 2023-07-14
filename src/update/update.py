@@ -5,6 +5,7 @@ import os
 import requests
 
 base_url = 'https://raw.githubusercontent.com/merept/MereGPT/master'
+gitee_url = 'https://gitee.com/merept/MereGPT/raw/master'
 
 
 def online_hash(url):
@@ -59,7 +60,11 @@ def main():
 
 
 if __name__ == '__main__':
-    # os.chdir(r'..\..')
+    os.chdir(r'..\..')
     os.system('cls')
     os.system('title MereGPT 更新中')
-    main()
+    try:
+        main()
+    except requests.exceptions.SSLError:
+        base_url = gitee_url
+        main()

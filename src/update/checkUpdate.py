@@ -7,6 +7,7 @@ import requests
 from service.confirm import confirm
 
 base_url = 'https://raw.githubusercontent.com/merept/MereGPT/master'
+gitee_url = 'https://gitee.com/merept/MereGPT/raw/master'
 
 
 def online_hash(url):
@@ -25,8 +26,14 @@ def local_hash(path):
 
 
 def check_json_file(json_file):
+    global base_url
+    global gitee_url
     lh = local_hash(f'./{json_file}')
-    oh = online_hash(f'{base_url}/{json_file}')
+    try:
+        oh = online_hash(f'{base_url}/{json_file}')
+    except requests.exceptions.SSLError:
+        base_url = gitee_url
+        oh = online_hash(f'{base_url}/{json_file}')
     if lh != oh:
         return True
     return False
