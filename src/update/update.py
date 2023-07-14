@@ -60,7 +60,7 @@ def main():
 
 
 if __name__ == '__main__':
-    os.chdir(r'..\..')
+    # os.chdir(r'..\..')
     os.system('cls')
     os.system('title MereGPT 更新中')
     try:
