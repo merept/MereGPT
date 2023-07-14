@@ -10,6 +10,25 @@ base_url = 'https://raw.githubusercontent.com/merept/MereGPT/master'
 gitee_url = 'https://gitee.com/merept/MereGPT/raw/master'
 
 
+def check_dev_edition():
+    global base_url
+    global gitee_url
+    with open('./resource/config.json', 'r') as file:
+        config = json.load(file)
+        try:
+            is_dev_edition = config['dev']
+        except KeyError:
+            config['dev'] = False
+            is_dev_edition = config['dev']
+    if is_dev_edition:
+        base_url_list = base_url.split('/')
+        base_url_list[-1] = 'dev'
+        base_url = str.join('/', base_url_list)
+        gitee_url_list = gitee_url.split('/')
+        gitee_url_list[-1] = 'dev'
+        gitee_url = str.join('/', gitee_url_list)
+
+
 def online_hash(url):
     response = requests.get(url)
     sha = hashlib.sha256(response.content)
@@ -40,12 +59,24 @@ def check_json_file(json_file):
     return False
 
 
+def check_config_file(config_file):
+    print(f'正在检查文件 {config_file}')
+    with open(f'./{config_file}', 'r') as file:
+        local_config = json.load(file)
+    response = requests.get(f'{base_url}/{config_file}')
+    online_config = response.json()
+    for key in online_config.keys():
+        if key not in local_config:
+            return True
+
+
 def main():
     os.system('cls')
     os.system('title 检查更新')
+    check_dev_edition()
     print('正在检查更新...')
     json_file = 'src/update/files.json'
-    if check_json_file(json_file):
+    if check_json_file(json_file) or check_config_file('resource/config.json'):
         if confirm('检测到更新，是否更新?(Y/N)'):
             raise Update('update')
         else:
