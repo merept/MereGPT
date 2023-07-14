@@ -47,16 +47,31 @@ def local_hash(path):
     return sha.hexdigest()
 
 
-def check_json_file(json_file):
+def check_update_module(update_module_path):
     global base_url
     global gitee_url
-    print(f'正在检查文件 {json_file}')
-    lh = local_hash(f'./{json_file}')
+    print(f'正在检查文件 {update_module_path}')
+    lh = local_hash(f'./{update_module_path}')
     try:
-        oh = online_hash(f'{base_url}/{json_file}')
+        oh = online_hash(f'{base_url}/{update_module_path}')
     except requests.exceptions.SSLError:
         base_url = gitee_url
-        oh = online_hash(f'{base_url}/{json_file}')
+        oh = online_hash(f'{base_url}/{update_module_path}')
+    if lh != oh:
+        print(f'正在更新文件 {update_module_path}')
+        l_file = f'./{update_module_path}'
+        print(f'正在移除文件 {update_module_path}')
+        os.remove(l_file)
+        print(f'正在下载文件 {update_module_path}')
+        o_file = requests.get(f'{base_url}/{update_module_path}')
+        with open(l_file, 'wb') as file:
+            file.write(o_file.content)
+
+
+def check_json_file(json_file):
+    print(f'正在检查文件 {json_file}')
+    lh = local_hash(f'./{json_file}')
+    oh = online_hash(f'{base_url}/{json_file}')
     if lh != oh:
         return True
     return False
@@ -91,6 +106,8 @@ def main():
     updates = []
     print('正在检查更新...')
     json_file = 'src/update/files.json'
+
+    check_update_module('src/update/update.py')
 
     if check_json_file(json_file):
         updates.append(json_file)
