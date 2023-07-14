@@ -107,7 +107,7 @@ def main():
             updates.append(file)
 
     os.system('cls')
-    if not updates:
+    if updates:
         confirm_update(updates)
     else:
         print('暂无更新')
