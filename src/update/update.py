@@ -43,7 +43,7 @@ def update(path, is_existed):
 
 
 def update_config_file(config_file):
-    print(f'正在检查文件 {config_file}')
+    print(f'正在更新文件 {config_file}')
     with open(f'./{config_file}', 'r') as file:
         local_config = json.load(file)
     response = requests.get(f'{base_url}/{config_file}')
