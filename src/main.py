@@ -16,6 +16,8 @@ def main():
         raise
     except ValueError:
         raise
+    except Update:
+        exit(1)
     except Exception as e:
         print(f'出错: {e}\n按任意键继续...')
         input()
@@ -32,5 +34,3 @@ if __name__ == '__main__':
             pass
         except ValueError:
             set_key(True)
-        except Update:
-            exit(1)
