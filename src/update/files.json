@@ -1,0 +1,23 @@
+[
+  "src/gpt/__init__.py",
+  "src/gpt/gpt.py",
+  "src/gpt/room.py",
+  "src/service/__init__.py",
+  "src/service/changeName.py",
+  "src/service/chat.py",
+  "src/service/clearCache.py",
+  "src/service/confirm.py",
+  "src/service/deleteChat.py",
+  "src/service/menu.py",
+  "src/service/newChat.py",
+  "src/service/oldChat.py",
+  "src/service/selectRoom.py",
+  "src/setting/__init__.py",
+  "src/setting/apiKey.py",
+  "src/setting/model.py",
+  "src/setting/proxyUrl.py",
+  "src/setting/setting.py",
+  "src/main.py",
+  "src/checkModules.py",
+  "resource/modules.json"
+]

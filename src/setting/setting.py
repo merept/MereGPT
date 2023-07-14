@@ -1,4 +1,5 @@
 from . import model, apiKey, proxyUrl
+from update import checkUpdate
 import os
 
 
@@ -9,7 +10,7 @@ def select():
             if s == '':
                 raise KeyboardInterrupt('setting')
             s = int(s)
-            if 3 >= s >= 1:
+            if 4 >= s >= 1:
                 return s
         except ValueError:
             pass
@@ -23,6 +24,8 @@ def execute(s):
         apiKey.set_key()
     elif s == 3:
         proxyUrl.set_url()
+    elif s == 4:
+        checkUpdate.main()
     return s
 
 
@@ -31,7 +34,10 @@ def main():
         try:
             os.system('cls')
             os.system('title 设置')
-            print('1.设置 GPT 模型\n2.设置 API Key\n3.设置代理地址')
+            print('1.设置 GPT 模型\n'
+                  '2.设置 API Key\n'
+                  '3.设置代理地址\n'
+                  '4.检查更新')
             s = select()
             execute(s)
         except KeyboardInterrupt as e:

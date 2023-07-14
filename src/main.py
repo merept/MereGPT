@@ -2,6 +2,7 @@ import os
 
 from service.menu import menu
 from setting.apiKey import set_key
+from update.checkUpdate import Update
 
 
 def main():
@@ -31,3 +32,5 @@ if __name__ == '__main__':
             pass
         except ValueError:
             set_key(True)
+        except Update:
+            exit(1)
