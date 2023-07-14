@@ -2,6 +2,12 @@ from . import model, apiKey, proxyUrl, devEdition
 from update import checkUpdate
 import os
 
+app = {
+    'version': '0.16.3',
+    'author': 'MerePT',
+    'license': 'MIT'
+}
+
 
 def select():
     while True:
@@ -36,7 +42,14 @@ def main():
         try:
             os.system('cls')
             os.system('title 设置')
-            print('1.设置 GPT 模型\n'
+            print('------------------------------------------------\n'
+                  '\n'
+                  f'应用程序版本: v{app["version"]}\n'
+                  f'作者: {app["author"]}\n'
+                  f'许可证: {app["license"]}\n'
+                  f'\n'
+                  '------------------------------------------------\n'
+                  '1.设置 GPT 模型\n'
                   '2.设置 API Key\n'
                   '3.设置代理地址\n'
                   '4.获取测试版更新\n'
