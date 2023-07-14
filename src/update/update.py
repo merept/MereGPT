@@ -64,6 +64,8 @@ def main():
         update_config_file(config_file)
 
     for file in updates:
+        if file == config_file:
+            continue
         print(f'正在更新文件 {file}')
         update(file, os.path.exists(f'./{file}'))
 
