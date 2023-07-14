@@ -32,8 +32,8 @@ def update(path, is_existed=True):
         os.mkdir(base_path)
     print(f'正在下载文件 {path}')
     o_file = requests.get(f'{base_url}/{path}')
-    with open(l_file, 'w') as file:
-        file.write(bytes.decode(o_file.content))
+    with open(l_file, 'wb') as file:
+        file.write(o_file.content)
 
 
 def update_json_file(json_file):
@@ -60,7 +60,7 @@ def main():
 
 
 if __name__ == '__main__':
-    os.chdir(r'..\..')
+    # os.chdir(r'..\..')
     os.system('cls')
     os.system('title MereGPT 更新中')
     main()
