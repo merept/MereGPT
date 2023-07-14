@@ -28,6 +28,7 @@ def local_hash(path):
 def check_json_file(json_file):
     global base_url
     global gitee_url
+    print(f'正在检查文件 {json_file}')
     lh = local_hash(f'./{json_file}')
     try:
         oh = online_hash(f'{base_url}/{json_file}')
@@ -52,6 +53,7 @@ def main():
     with open(f'./{json_file}', 'r') as file:
         file_list = json.load(file)
     for file in file_list:
+        print(f'正在检查文件 {file}')
         lh = local_hash(f'./{file}')
         oh = online_hash(f'{base_url}/{file}')
         if lh != oh:

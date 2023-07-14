@@ -38,6 +38,7 @@ def update(path, is_existed=True):
 
 
 def update_json_file(json_file):
+    print(f'正在检查文件 {json_file}')
     lh = local_hash(f'./{json_file}')
     oh = online_hash(f'{base_url}/{json_file}')
     if lh != oh:
@@ -50,6 +51,7 @@ def main():
     with open(f'./{json_file}') as file:
         file_list = json.load(file)
     for file in file_list:
+        print(f'正在检查文件 {file}')
         if not os.path.exists(f'./{file}'):
             update(file, False)
             continue
