@@ -8,6 +8,7 @@ def delete(chat_rooms):
     os.system('title 删除聊天室')
     room = selectRoom.room_list(chat_rooms)
     gpt = chat_rooms.gpt(room)
+    os.system('cls')
     print(f'要删除的聊天室: {gpt.name}')
     if not confirm.confirm('是否删除该聊天室?(Y/N)'):
         raise KeyboardInterrupt()
