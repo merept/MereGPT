@@ -5,6 +5,17 @@ from update import checkUpdate
 import os
 
 
+def check_dev_edition():
+    with open('./resource/config.json', 'r') as file:
+        config = json.load(file)
+        try:
+            is_dev_edition = config['dev']
+        except KeyError:
+            config['dev'] = False
+            is_dev_edition = config['dev']
+    return is_dev_edition
+
+
 def select():
     while True:
         try:
@@ -40,12 +51,15 @@ def main():
     with open('./resource/info.json', 'r', encoding='utf-8') as file:
         app = json.load(file)
     while True:
+        is_dev_edition = check_dev_edition()
+        dev_info = f'测试版本: {app["dev"]}\n' if is_dev_edition else ''
         try:
             os.system('cls')
             os.system('title 设置')
             print(f'{"-" * 50}\n'
                   '\n'
                   f'应用程序版本: v{app["version"]}\n'
+                  f'{dev_info}'
                   f'作者: {app["author"][0]}\n'
                   f'许可证: {app["license"]}\n'
                   f'\n'
