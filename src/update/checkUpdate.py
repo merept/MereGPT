@@ -192,7 +192,7 @@ def main():
               f'是否更新?(Y/N)'
         confirm_update(msg, updates)
     elif not is_old_version and updates:
-        msg = '检测到文件缺失，是否立即修复?(Y/N)'
+        msg = '检测到有文件与最新文件不一致，是否立即修复?(Y/N)'
         confirm_update(msg, updates)
     else:
         print('暂无更新')

@@ -1,9 +1,9 @@
 {
-  "version": "0.17.2",
-  "dev": "23JL151552",
+  "version": "0.17.3",
+  "dev": "23JL151556",
   "author": [
     "MerePT"
   ],
   "license": "MIT",
-  "content": "1.新增在设置里查看现版本更新内容"
+  "content": "1.修改检查文件完整性的描述"
 }
