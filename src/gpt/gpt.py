@@ -124,7 +124,7 @@ class MereGPT:
     @name.setter
     def name(self, value):
         if not value:
-            now = datetime.now().strftime('%m%d%H%M%S')
+            now = datetime.now().strftime('%m%d%H%M')
             self.__name = f'NewChat_{now}'
         else:
             self.__name = value
