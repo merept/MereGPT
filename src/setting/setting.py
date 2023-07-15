@@ -45,7 +45,7 @@ def execute(s):
 
 
 def main():
-    if not os.path.exists('./resource/info.json'):
+    if not os.path.exists('./resource/info.json') or not os.path.exists('./resource/config.json'):
         checkUpdate.main()
         raise KeyboardInterrupt()
     with open('./resource/info.json', 'r', encoding='utf-8') as file:

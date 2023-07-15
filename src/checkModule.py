@@ -2,6 +2,7 @@ import importlib
 import json
 import os
 
+from update import checkUpdate
 
 def check_module(name, info):
     package = info['package']
@@ -16,6 +17,8 @@ def check_module(name, info):
 
 if __name__ == '__main__':
     os.chdir(r'.\src')
+    if not os.path.exists(r'..\resource\modules.json'):
+        checkUpdate.main()
     with open(r'..\resource\modules.json', 'r', encoding='utf-8') as file:
         modules_dict = json.load(file)
     for key, value in modules_dict.items():
