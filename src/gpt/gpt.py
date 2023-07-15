@@ -1,5 +1,6 @@
 import json
 import os
+import uuid
 from datetime import datetime
 
 import requests
@@ -114,7 +115,6 @@ class MereGPT:
     def change(self, new_name):
         os.remove(fr'.\resource\chats\{self.path}.json')
         self.name = new_name
-        self.path = new_name.lower().replace(' ', '_')
         self.save()
 
     @property
@@ -147,8 +147,8 @@ class MereGPT:
     @path.setter
     def path(self, value):
         if not value:
-            file_name = self.name.lower().replace(' ', '_')
-            self.__path = f'{file_name}'
+            file_uuid = uuid.uuid4()
+            self.__path = f'{file_uuid}'
         else:
             self.__path = value
 
