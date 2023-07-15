@@ -154,28 +154,32 @@ def main():
     thread = Thread(target=checking, daemon=True)
     thread.start()
 
-    updates = []
-    # print('正在检查更新...')
-    json_file = 'src/update/files.json'
+    try:
+        updates = []
+        # print('正在检查更新...')
+        json_file = 'src/update/files.json'
 
-    check_update_module('src/update/update.py')
+        check_update_module('src/update/update.py')
 
-    check_json_file(json_file)
+        check_json_file(json_file)
 
-    is_old_version, info = check_info_file('resource/info.json')
+        is_old_version, info = check_info_file('resource/info.json')
 
-    if check_config_file('resource/config.json'):
-        updates.append('resource/config.json')
+        if check_config_file('resource/config.json'):
+            updates.append('resource/config.json')
 
-    with open(f'./{json_file}', 'r') as file:
-        file_list = json.load(file)
+        with open(f'./{json_file}', 'r') as file:
+            file_list = json.load(file)
 
-    for file in file_list:
-        # print(f'正在检查文件 {file}')
-        lh = local_hash(f'./{file}')
-        oh = online_hash(f'{base_url}/{file}')
-        if lh != oh:
-            updates.append(file)
+        for file in file_list:
+            # print(f'正在检查文件 {file}')
+            lh = local_hash(f'./{file}')
+            oh = online_hash(f'{base_url}/{file}')
+            if lh != oh:
+                updates.append(file)
+    except Exception:
+        is_checking = False
+        raise
 
     is_checking = False
 
