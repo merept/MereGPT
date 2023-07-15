@@ -32,14 +32,14 @@ def select():
             if s == '':
                 raise KeyboardInterrupt('setting')
             s = int(s)
-            if 5 >= s >= 1:
+            if 6 >= s >= 1:
                 return s
         except ValueError:
             pass
         print('输入错误，请重新输入\n')
 
 
-def execute(s):
+def execute(s, app):
     if s == 1:
         model.select_model()
     elif s == 2:
@@ -49,6 +49,8 @@ def execute(s):
     elif s == 4:
         devEdition.change()
     elif s == 5:
+        check_version_content(app)
+    elif s == 6:
         checkUpdate.main()
     return s
 
@@ -77,9 +79,10 @@ def main():
                   '2.设置 API Key\n'
                   '3.设置代理地址\n'
                   '4.获取测试版更新\n'
-                  '5.检查更新(检查文件完整性)')
+                  '5.查看版本更新内容\n'
+                  '6.检查更新(检查文件完整性)')
             s = select()
-            execute(s)
+            execute(s, app)
         except KeyboardInterrupt as e:
             if e.args[0] == 'setting':
                 raise
