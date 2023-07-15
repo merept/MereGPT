@@ -17,6 +17,7 @@ def check_dev_edition():
 
 
 def check_version_content(app):
+    os.system('cls')
     content = f'v{app["version"]} ({app["dev"]})\n' \
               f'更新内容:\n' \
               f'{app["content"]}'
