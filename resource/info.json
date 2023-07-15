@@ -1,9 +1,9 @@
 {
   "version": "0.17.4",
-  "dev": "23JL151730",
+  "dev": "23JL151733",
   "author": [
     "MerePT"
   ],
   "license": "MIT",
-  "content": "1.修改清空记录策略"
+  "content": "1.优化清空记录策略\n2.优化新建对话名称的方式"
 }
