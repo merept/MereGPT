@@ -21,7 +21,10 @@ def check_dev_edition():
     global base_url
     global gitee_url
     global is_dev_edition
-    with open('./resource/config.json', 'r') as file:
+    config_file = './resource/config.json'
+    if not os.path.exists(config_file):
+        update(config_file)
+    with open(config_file, 'r') as file:
         config = json.load(file)
         try:
             is_dev_edition = config['dev']
@@ -70,6 +73,9 @@ def update(path):
     l_file = f'./{path}'
     if os.path.exists(path):
         os.remove(l_file)
+    base_path = str.join('/', l_file.split('/')[:-1])
+    if not os.path.exists(base_path):
+        os.mkdir(base_path)
     o_file = requests.get(f'{base_url}/{path}')
     with open(l_file, 'wb') as file:
         file.write(o_file.content)
