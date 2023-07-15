@@ -34,6 +34,9 @@ def execute(s):
 
 
 def main():
+    if not os.path.exists('./resource/info.json'):
+        checkUpdate.main()
+        raise KeyboardInterrupt()
     with open('./resource/info.json', 'r', encoding='utf-8') as file:
         app = json.load(file)
     while True:
