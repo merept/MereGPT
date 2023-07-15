@@ -68,7 +68,8 @@ def checking():
 
 def update(path):
     l_file = f'./{path}'
-    os.remove(l_file)
+    if os.path.exists(path):
+        os.remove(l_file)
     o_file = requests.get(f'{base_url}/{path}')
     with open(l_file, 'wb') as file:
         file.write(o_file.content)
@@ -103,6 +104,9 @@ def check_info_file(info_file):
         return False, {}
     response = requests.get(f'{base_url}/{info_file}')
     online_info = response.json()
+    if not lh:
+        update(info_file)
+        return True, online_info
     with open(f'./{info_file}', 'r') as file:
         local_info = json.load(file)
     if online_info['version'] != local_info['version'] or (is_dev_edition and online_info['dev'] != local_info['dev']):
