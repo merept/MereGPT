@@ -16,6 +16,15 @@ def check_dev_edition():
     return is_dev_edition
 
 
+def check_version_content(app):
+    content = f'v{app["version"]} ({app["dev"]})\n' \
+              f'更新内容:\n' \
+              f'{app["content"]}'
+    print(content, end='')
+    input()
+    raise KeyboardInterrupt('versionContent')
+
+
 def select():
     while True:
         try:
