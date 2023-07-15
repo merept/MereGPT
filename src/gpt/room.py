@@ -24,10 +24,6 @@ class ChatRooms:
         if not self.config['apiKey']:
             raise ValueError()
 
-    # def configure(self, init=False):
-    #     if init:
-    #         print('在开始前请先配置 API Key')
-
     def gpt(self, index):
         file_name = self.__rooms_dict[index]['file']
         file_path = fr'.\resource\chats\{file_name}.json'
@@ -54,21 +50,8 @@ class ChatRooms:
         self.save()
 
     def clear(self):
-        for f in self.__rooms_dict:
-            os.remove(fr'.\resource\chats\{f["file"]}.json')
+        for root, dirs, files in os.walk('./resource/chats'):
+            for file in files:
+                os.remove(os.path.join(root, file))
         self.__rooms_dict = []
         self.save()
-
-    # @property
-    # def config(self):
-    #     return self.__config
-    #
-    # @config.setter
-    # def config(self, value: dict):
-    #     self.__config = {}
-    #     for k, v in value.items():
-    #         if not v:
-    #             self.configure(True)
-    #         else:
-    #             self.__config[k] = v
-
