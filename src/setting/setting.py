@@ -34,7 +34,7 @@ def execute(s):
 
 
 def main():
-    with open('./resource/info.json', 'r') as file:
+    with open('./resource/info.json', 'r', encoding='utf-8') as file:
         app = json.load(file)
     while True:
         try:
@@ -43,7 +43,7 @@ def main():
             print(f'{"-" * 50}\n'
                   '\n'
                   f'应用程序版本: v{app["version"]}\n'
-                  f'作者: {app["author"]}\n'
+                  f'作者: {app["author"][0]}\n'
                   f'许可证: {app["license"]}\n'
                   f'\n'
                   f'{"-" * 50}\n'

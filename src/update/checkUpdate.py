@@ -107,11 +107,11 @@ def check_info_file(info_file):
     if not lh:
         update(info_file)
         return True, online_info
-    with open(f'./{info_file}', 'r') as file:
+    with open(f'./{info_file}', 'r', encoding='utf-8') as file:
         local_info = json.load(file)
     if online_info['version'] != local_info['version'] or (is_dev_edition and online_info['dev'] != local_info['dev']):
         local_info = online_info
-        with open(f'./{info_file}', 'w') as file:
+        with open(f'./{info_file}', 'w', encoding='utf-8') as file:
             json.dump(local_info, file, indent=2, ensure_ascii=False)
         return True, online_info
     return False, {}
@@ -130,7 +130,7 @@ def check_config_file(config_file):
 
 def confirm_update(msg, updates):
     if confirm(msg):
-        with open('./src/update/updates.json', 'w') as file:
+        with open('./src/update/updates.json', 'w', encoding='utf-8') as file:
             json.dump(updates, file, ensure_ascii=False)
         raise Update('update')
     else:

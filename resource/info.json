@@ -1,7 +1,9 @@
 {
   "version": "0.17.0",
-  "dev": "23JL151434",
-  "author": ["MerePT"],
+  "dev": "23JL151457",
+  "author": [
+    "MerePT"
+  ],
   "license": "MIT",
   "content": "1.优化检查更新界面显示效果\n2.优化检查更新方式"
 }
