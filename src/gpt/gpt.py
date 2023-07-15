@@ -113,7 +113,6 @@ class MereGPT:
             json.dump(chat, file, indent=2, ensure_ascii=False)
 
     def change(self, new_name):
-        os.remove(fr'.\resource\chats\{self.path}.json')
         self.name = new_name
         self.save()
 
