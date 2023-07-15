@@ -1,12 +1,8 @@
+import json
+
 from . import model, apiKey, proxyUrl, devEdition
 from update import checkUpdate
 import os
-
-app = {
-    'version': '0.16.4',
-    'author': 'MerePT',
-    'license': 'MIT'
-}
 
 
 def select():
@@ -38,6 +34,8 @@ def execute(s):
 
 
 def main():
+    with open('./resource/info.json', 'r') as file:
+        app = json.load(file)
     while True:
         try:
             os.system('cls')

@@ -11,6 +11,8 @@ from service.confirm import confirm
 base_url = 'https://raw.githubusercontent.com/merept/MereGPT/master'
 gitee_url = 'https://gitee.com/merept/MereGPT/raw/master'
 
+is_dev_edition = False
+
 loads = ['', '.', '..', '...']
 is_checking = False
 
@@ -18,6 +20,7 @@ is_checking = False
 def check_dev_edition():
     global base_url
     global gitee_url
+    global is_dev_edition
     with open('./resource/config.json', 'r') as file:
         config = json.load(file)
         try:
@@ -63,6 +66,14 @@ def checking():
         sleep(0.5)
 
 
+def update(path):
+    l_file = f'./{path}'
+    os.remove(l_file)
+    o_file = requests.get(f'{base_url}/{path}')
+    with open(l_file, 'wb') as file:
+        file.write(o_file.content)
+
+
 def check_update_module(update_module_path):
     global base_url
     global gitee_url
@@ -74,14 +85,7 @@ def check_update_module(update_module_path):
         base_url = gitee_url
         oh = online_hash(f'{base_url}/{update_module_path}')
     if lh != oh:
-        # print(f'正在更新文件 {update_module_path}')
-        l_file = f'./{update_module_path}'
-        # print(f'正在移除文件 {update_module_path}')
-        os.remove(l_file)
-        # print(f'正在下载文件 {update_module_path}')
-        o_file = requests.get(f'{base_url}/{update_module_path}')
-        with open(l_file, 'wb') as file:
-            file.write(o_file.content)
+        update(update_module_path)
 
 
 def check_json_file(json_file):
@@ -89,8 +93,24 @@ def check_json_file(json_file):
     lh = local_hash(f'./{json_file}')
     oh = online_hash(f'{base_url}/{json_file}')
     if lh != oh:
-        return True
-    return False
+        update(json_file)
+
+
+def check_info_file(info_file):
+    lh = local_hash(f'./{info_file}')
+    oh = online_hash(f'{base_url}/{info_file}')
+    if lh == oh:
+        return False, {}
+    response = requests.get(f'{base_url}/{info_file}')
+    online_info = response.json()
+    with open(f'./{info_file}', 'r') as file:
+        local_info = json.load(file)
+    if online_info['version'] != local_info['version'] or (is_dev_edition and online_info['dev'] != local_info['dev']):
+        local_info = online_info
+        with open(f'./{info_file}', 'w') as file:
+            json.dump(local_info, file, indent=2, ensure_ascii=False)
+        return True, online_info
+    return False, {}
 
 
 def check_config_file(config_file):
@@ -104,8 +124,8 @@ def check_config_file(config_file):
             return True
 
 
-def confirm_update(updates):
-    if confirm('检测到更新，是否更新?(Y/N)'):
+def confirm_update(msg, updates):
+    if confirm(msg):
         with open('./src/update/updates.json', 'w') as file:
             json.dump(updates, file, ensure_ascii=False)
         raise Update('update')
@@ -130,8 +150,9 @@ def main():
 
     check_update_module('src/update/update.py')
 
-    if check_json_file(json_file):
-        updates.append(json_file)
+    check_json_file(json_file)
+
+    is_old_version, info = check_info_file('resource/info.json')
 
     if check_config_file('resource/config.json'):
         updates.append('resource/config.json')
@@ -149,8 +170,16 @@ def main():
     is_checking = False
 
     os.system('cls')
-    if updates:
-        confirm_update(updates)
+    if is_old_version and updates:
+        msg = f'检测到更新:\n' \
+              f'v{info["version"]} ({info["dev"]})\n' \
+              f'更新内容:\n' \
+              f'{info["content"]}\n' \
+              f'是否更新?(Y/N)'
+        confirm_update(msg, updates)
+    elif not is_old_version and updates:
+        msg = '检测到文件缺失，是否立即修复?(Y/N)'
+        confirm_update(msg, updates)
     else:
         print('暂无更新')
         input()
