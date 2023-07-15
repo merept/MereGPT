@@ -12,7 +12,7 @@ base_url = 'https://raw.githubusercontent.com/merept/MereGPT/master'
 gitee_url = 'https://gitee.com/merept/MereGPT/raw/master'
 
 loads = ['', '.', '..', '...']
-is_checking = True
+is_checking = False
 
 
 def check_dev_edition():
@@ -120,6 +120,7 @@ def main():
 
     check_dev_edition()
 
+    is_checking = True
     thread = Thread(target=checking, daemon=True)
     thread.start()
 
