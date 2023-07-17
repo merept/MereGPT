@@ -41,7 +41,7 @@ def fix(path):
 
 
 def check_base_file():
-    base_files = ['src/update/update.py', 'src/update/files.json']
+    base_files = ['src/update/update.py', 'src/update/files.json', 'resource/config.json', 'resource/info.json']
     for bf in base_files:
         if not os.path.exists(f'./{bf}'):
             print(f'正在修复文件 {bf}')
@@ -56,10 +56,6 @@ def check_local_module(path):
 
 if __name__ == '__main__':
     # os.chdir(r'..\..')
-    # if not os.path.exists(r'.\resource\modules.json'):
-    #     checkUpdate.main()
-    # with open(r'.\resource\modules.json', 'r', encoding='utf-8') as file:
-    #     modules_dict = json.load(file)
     for key, value in modules.items():
         check_third_party_module(key, value)
     requestsModule = importlib.import_module('requests')
