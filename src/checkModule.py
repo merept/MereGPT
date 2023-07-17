@@ -4,6 +4,17 @@ import os
 
 from update import checkUpdate
 
+modules = {
+  "requests": {
+    "package": "requests",
+    "version": "2.30.0"
+  },
+  "sseclient": {
+    "package": "sseclient-py",
+    "version": "1.7.2"
+  }
+}
+
 requestsModule = None
 files = []
 base_url = 'https://raw.githubusercontent.com/merept/MereGPT/master'
@@ -46,12 +57,12 @@ def check_local_module(path):
 
 
 if __name__ == '__main__':
-    # os.chdir(r'..\..')
-    if not os.path.exists(r'.\resource\modules.json'):
-        checkUpdate.main()
-    with open(r'.\resource\modules.json', 'r', encoding='utf-8') as file:
-        modules_dict = json.load(file)
-    for key, value in modules_dict.items():
+    os.chdir(r'..\..')
+    # if not os.path.exists(r'.\resource\modules.json'):
+    #     checkUpdate.main()
+    # with open(r'.\resource\modules.json', 'r', encoding='utf-8') as file:
+    #     modules_dict = json.load(file)
+    for key, value in modules.items():
         check_third_party_module(key, value)
     requestsModule = importlib.import_module('requests')
 
