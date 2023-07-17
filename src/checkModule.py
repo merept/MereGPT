@@ -57,7 +57,7 @@ def check_local_module(path):
 
 
 if __name__ == '__main__':
-    os.chdir(r'..\..')
+    # os.chdir(r'..\..')
     # if not os.path.exists(r'.\resource\modules.json'):
     #     checkUpdate.main()
     # with open(r'.\resource\modules.json', 'r', encoding='utf-8') as file:
