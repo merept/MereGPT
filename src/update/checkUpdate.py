@@ -112,15 +112,17 @@ def check_info_file(info_file):
     online_info = response.json()
     if not lh:
         update(info_file)
-        return True, online_info
+        return True, online_info, True
     with open(f'./{info_file}', 'r', encoding='utf-8') as file:
         local_info = json.load(file)
+    if int(online_info['version'].split('.')[1]) > int(local_info['version'].split('.')[1]):
+        return True, online_info, True
     if online_info['version'] != local_info['version'] or (is_dev_edition and online_info['dev'] != local_info['dev']):
         local_info = online_info
         with open(f'./{info_file}', 'w', encoding='utf-8') as file:
             json.dump(local_info, file, indent=2, ensure_ascii=False)
-        return True, online_info
-    return False, {}
+        return True, online_info, False
+    return False, {}, False
 
 
 def check_config_file(config_file):
@@ -143,6 +145,21 @@ def confirm_update(msg, updates):
         raise KeyboardInterrupt('update')
 
 
+def big_version_update(info):
+    base_file = ['src/update/update.py', 'src/update/files.json']
+    for bf in base_file:
+        update(bf)
+    with open('src/update/files.json', 'r', encoding='utf-8') as file:
+        updates = json.load(file)
+    updates.append('resource/config.json')
+    msg = f'检测到更新:\n' \
+          f'v{info["version"]} ({info["dev"]})\n' \
+          f'更新内容:\n' \
+          f'{info["content"]}\n' \
+          f'是否更新?(Y/N)'
+    confirm_update(msg, updates)
+
+
 def main():
     global is_checking
     os.system('cls')
@@ -163,7 +180,7 @@ def main():
 
         check_json_file(json_file)
 
-        is_old_version, info = check_info_file('resource/info.json')
+        is_old_version, info, is_big_version = check_info_file('resource/info.json')
 
         if check_config_file('resource/config.json'):
             updates.append('resource/config.json')
@@ -184,7 +201,9 @@ def main():
     is_checking = False
 
     os.system('cls')
-    if is_old_version and updates:
+    if is_big_version:
+        big_version_update(info)
+    elif is_old_version and updates:
         msg = f'检测到更新:\n' \
               f'v{info["version"]} ({info["dev"]})\n' \
               f'更新内容:\n' \
@@ -203,3 +222,11 @@ def main():
 class Update(Exception):
     def __init__(self, message):
         self.message = message
+#
+#
+# if __name__ == '__main__':
+#     os.chdir('../..')
+#     try:
+#         main()
+#     except Update:
+#         exit(1)
