@@ -107,7 +107,7 @@ def check_info_file(info_file):
     lh = local_hash(f'./{info_file}')
     oh = online_hash(f'{base_url}/{info_file}')
     if lh == oh:
-        return False, {}
+        return False, {}, False
     response = requests.get(f'{base_url}/{info_file}')
     online_info = response.json()
     if not lh:

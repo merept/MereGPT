@@ -1,9 +1,9 @@
 {
   "version": "0.17.8",
-  "dev": "23JL180120",
+  "dev": "23JL180125",
   "author": [
     "MerePT"
   ],
   "license": "MIT",
-  "content": "1.大版本更新时，将更新所有文件"
+  "content": "1.增加在代码文件被误删时，自动修复的功能"
 }
