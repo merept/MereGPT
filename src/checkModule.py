@@ -2,8 +2,6 @@ import importlib
 import json
 import os
 
-from update import checkUpdate
-
 modules = {
   "requests": {
     "package": "requests",
@@ -65,6 +63,11 @@ if __name__ == '__main__':
     for key, value in modules.items():
         check_third_party_module(key, value)
     requestsModule = importlib.import_module('requests')
+
+    try:
+        requestsModule.get(base_url)
+    except requestsModule.exceptions.SSLError:
+        base_url = gitee_url
 
     check_base_file()
 
