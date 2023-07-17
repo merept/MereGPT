@@ -46,7 +46,6 @@ def check_local_module(path):
 
 
 if __name__ == '__main__':
-    global requestsModule
     # os.chdir(r'..\..')
     if not os.path.exists(r'.\resource\modules.json'):
         checkUpdate.main()
