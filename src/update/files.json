@@ -20,6 +20,8 @@
   "src/setting/setting.py",
   "src/update/__init__.py",
   "src/update/checkUpdate.py",
+  "src/exceptions/__init__.py",
+  "src/exceptions/exceptions.py",
   "src/main.py",
   "src/checkModule.py",
   "resource/modules.json"
