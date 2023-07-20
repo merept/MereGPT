@@ -1,9 +1,9 @@
 {
-  "version": "0.17.8",
-  "dev": "23JL180120",
+  "version": "0.17.9",
+  "dev": "23JL210233",
   "author": [
     "MerePT"
   ],
   "license": "MIT",
-  "content": "1.大版本更新时，将更新所有文件"
+  "content": "1.大版本更新时，将更新所有文件\n2.配置 API Key 时，增加检查功能，若为错误或无效 Key 将不会配置成功"
 }
