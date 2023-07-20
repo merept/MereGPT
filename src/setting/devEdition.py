@@ -1,6 +1,7 @@
 import os
 import json
 
+from exceptions.exceptions import ReturnInterrupt
 from service.confirm import confirm
 
 
@@ -20,6 +21,6 @@ def change():
     if confirm(f'是否更改为{dev_change_edi}?(Y/N)'):
         config['dev'] = not dev_now
     else:
-        raise KeyboardInterrupt('devEdition')
+        raise ReturnInterrupt('devEdition')
     with open(r'.\resource\config.json', 'w', encoding='utf-8') as file:
         json.dump(config, file, ensure_ascii=False, indent=2)

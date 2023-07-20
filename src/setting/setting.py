@@ -1,5 +1,6 @@
 import json
 
+from exceptions.exceptions import ReturnInterrupt
 from . import model, apiKey, proxyUrl, devEdition
 from update import checkUpdate
 import os
@@ -23,7 +24,7 @@ def check_version_content(app):
               f'{app["content"]}'
     print(content, end='')
     input()
-    raise KeyboardInterrupt('versionContent')
+    raise ReturnInterrupt('versionContent')
 
 
 def select():
@@ -31,7 +32,7 @@ def select():
         try:
             s = input('请输入选项 > ')
             if s == '':
-                raise KeyboardInterrupt('setting')
+                raise ReturnInterrupt('setting')
             s = int(s)
             if 6 >= s >= 1:
                 return s
@@ -59,7 +60,7 @@ def execute(s, app):
 def main():
     if not os.path.exists('./resource/info.json') or not os.path.exists('./resource/config.json'):
         checkUpdate.main()
-        raise KeyboardInterrupt()
+        raise ReturnInterrupt()
     with open('./resource/info.json', 'r', encoding='utf-8') as file:
         app = json.load(file)
     while True:
@@ -84,7 +85,7 @@ def main():
                   '6.检查更新(检查文件完整性)')
             s = select()
             execute(s, app)
-        except KeyboardInterrupt as e:
+        except ReturnInterrupt as e:
             if e.args[0] == 'setting':
                 raise
             else:

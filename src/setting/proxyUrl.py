@@ -1,6 +1,7 @@
 import json
 import os
 
+from exceptions.exceptions import ReturnInterrupt
 from service.confirm import confirm
 
 
@@ -20,7 +21,7 @@ def set_url():
     new_url = input('请输入您的代理地址 > ')
     if new_url == '':
         if not confirm('是否将代理地址设为默认?(Y/N)'):
-            raise KeyboardInterrupt('proxyUrl')
+            raise ReturnInterrupt('proxyUrl')
     config['proxyUrl'] = new_url
     with open(r'.\resource\config.json', 'w', encoding='utf-8') as file:
         json.dump(config, file, ensure_ascii=False, indent=2)

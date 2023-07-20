@@ -3,6 +3,8 @@ import os
 
 import requests
 
+from exceptions.exceptions import ReturnInterrupt
+
 
 def check_api_key(api_key, url):
     if not url:
@@ -37,7 +39,7 @@ def set_key(is_first_time=False):
         if is_first_time:
             return
         else:
-            raise KeyboardInterrupt('apiKey')
+            raise ReturnInterrupt('apiKey')
     with open(r'.\resource\config.json', 'r', encoding='utf-8') as file:
         config = json.load(file)
     if not check_api_key(new_api_key, config['proxyUrl']):
@@ -50,7 +52,7 @@ def set_key(is_first_time=False):
         if is_first_time:
             return
         else:
-            raise KeyboardInterrupt('apiKey')
+            raise ReturnInterrupt('apiKey')
     config['apiKey'] = new_api_key
     with open(r'.\resource\config.json', 'w', encoding='utf-8') as file:
         json.dump(config, file, ensure_ascii=False, indent=2)

@@ -1,5 +1,6 @@
 import os
 
+from exceptions.exceptions import ReturnInterrupt
 from service import selectRoom, confirm
 
 
@@ -11,6 +12,6 @@ def delete(chat_rooms):
     os.system('cls')
     print(f'要删除的聊天室: {gpt.name}')
     if not confirm.confirm('是否删除该聊天室?(Y/N)'):
-        raise KeyboardInterrupt()
+        raise ReturnInterrupt('deleteChat')
     chat_rooms.delete(room)
     os.system('cls')

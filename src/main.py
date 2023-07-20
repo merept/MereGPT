@@ -3,6 +3,7 @@ import os
 from service.menu import menu
 from setting.apiKey import set_key
 from update.checkUpdate import Update
+from exceptions.exceptions import ReturnInterrupt, ConfigError
 
 
 def main():
@@ -12,9 +13,9 @@ def main():
         while selection != 0:
             selection = menu()
         exit(0)
-    except KeyboardInterrupt:
+    except ReturnInterrupt:
         raise
-    except ValueError:
+    except ConfigError:
         raise
     except Update:
         exit(1)
@@ -30,7 +31,7 @@ if __name__ == '__main__':
     while True:
         try:
             main()
-        except KeyboardInterrupt:
+        except ReturnInterrupt:
             pass
-        except ValueError:
+        except ConfigError:
             set_key(True)

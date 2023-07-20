@@ -1,11 +1,13 @@
 import os
 
+from exceptions.exceptions import ReturnInterrupt
+
 
 def none_records():
     os.system('cls')
     print('当前没有聊天记录')
     input()
-    raise KeyboardInterrupt()
+    raise ReturnInterrupt('selectRoom')
 
 
 def select_room(max_index):
@@ -32,5 +34,5 @@ def room_list(chat_rooms):
         print(f'{i + 1}.{r}')
     room = select_room(len(rooms))
     if room == -1:
-        raise KeyboardInterrupt()
+        raise ReturnInterrupt('selectRoom')
     return room - 1

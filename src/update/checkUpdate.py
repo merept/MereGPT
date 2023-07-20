@@ -6,6 +6,7 @@ from time import sleep
 
 import requests
 
+from exceptions.exceptions import ReturnInterrupt
 from service.confirm import confirm
 
 base_url = 'https://raw.githubusercontent.com/merept/MereGPT/master'
@@ -142,7 +143,7 @@ def confirm_update(msg, updates):
             json.dump(updates, file, ensure_ascii=False)
         raise Update('update')
     else:
-        raise KeyboardInterrupt('update')
+        raise ReturnInterrupt('update')
 
 
 def big_version_update(info):
@@ -216,7 +217,7 @@ def main():
     else:
         print('暂无更新')
         input()
-        raise KeyboardInterrupt('update')
+        raise ReturnInterrupt('update')
 
 
 class Update(Exception):

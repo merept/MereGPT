@@ -1,5 +1,6 @@
 import os
 
+from exceptions.exceptions import ReturnInterrupt
 from gpt.room import ChatRooms
 from service import newChat, oldChat, changeName, deleteChat, clearCache
 from setting import setting
@@ -10,7 +11,7 @@ def select():
         try:
             s = input('请输入选项 > ')
             if s == '':
-                raise KeyboardInterrupt()
+                raise ReturnInterrupt('menu')
             s = int(s)
             if 6 >= s >= 0:
                 return s

@@ -1,5 +1,6 @@
 import os
 
+from exceptions.exceptions import ReturnInterrupt
 from service.confirm import confirm
 
 units = ('Bytes', 'KB', 'MB')
@@ -27,6 +28,6 @@ def clear(chat_rooms):
     os.system('title 清除聊天记录')
     print(f'当前占用空间 {get_size()}')
     if not confirm('是否清空记录?(Y/N)'):
-        raise KeyboardInterrupt()
+        raise ReturnInterrupt('clearCache')
     chat_rooms.clear()
     os.system('cls')

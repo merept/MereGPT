@@ -1,13 +1,15 @@
 import json
 import os
 
+from exceptions.exceptions import ReturnInterrupt
+
 
 def select():
     while True:
         try:
             s = input('请输入选项 > ')
             if s == '':
-                raise KeyboardInterrupt('model')
+                raise ReturnInterrupt('model')
             s = int(s)
             if 2 >= s >= 1:
                 return s

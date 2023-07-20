@@ -1,10 +1,11 @@
 import json
-import os
 import uuid
 from datetime import datetime
 
 import requests
 from sseclient import SSEClient
+
+from exceptions.exceptions import ConfigError
 
 
 class MereGPT:
@@ -158,7 +159,7 @@ class MereGPT:
     @api_key.setter
     def api_key(self, value):
         if not value:
-            raise ValueError()
+            raise ConfigError('apiKey')
         else:
             self.__api_key = value
 

@@ -1,6 +1,7 @@
 import json
 import os
 
+from exceptions.exceptions import ConfigError
 from .gpt import MereGPT
 
 
@@ -22,7 +23,7 @@ class ChatRooms:
         with open(r'.\resource\config.json', 'r', encoding='utf-8') as file:
             self.config = json.load(file)
         if not self.config['apiKey']:
-            raise ValueError()
+            raise ConfigError('apiKey')
 
     def gpt(self, index):
         file_name = self.__rooms_dict[index]['file']
