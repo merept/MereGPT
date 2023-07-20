@@ -6,7 +6,7 @@ from time import sleep
 
 import requests
 
-from exceptions.exceptions import ReturnInterrupt
+from exceptions.exceptions import ReturnInterrupt, Update
 from service.confirm import confirm
 
 base_url = 'https://raw.githubusercontent.com/merept/MereGPT/master'
@@ -218,11 +218,6 @@ def main():
         print('暂无更新')
         input()
         raise ReturnInterrupt('update')
-
-
-class Update(Exception):
-    def __init__(self, message):
-        self.message = message
 #
 #
 # if __name__ == '__main__':

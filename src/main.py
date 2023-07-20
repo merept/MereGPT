@@ -2,8 +2,7 @@ import os
 
 from service.menu import menu
 from setting.apiKey import set_key
-from update.checkUpdate import Update
-from exceptions.exceptions import ReturnInterrupt, ConfigError
+from exceptions.exceptions import ReturnInterrupt, ConfigError, Update
 
 
 def main():
