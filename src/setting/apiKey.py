@@ -46,7 +46,7 @@ def set_key(is_first_time=False):
     print('检查 API Key 中...')
     if not check_api_key(new_api_key, config['proxyUrl']):
         print(
-            '\n\n您输入的 API Key 有误\n'
+            '\n您输入的 API Key 有误\n'
             '请前往 https://platform.openai.com/account/api-keys 重新获取您的 API Key\n\n'
             '回车键继续...', end=''
         )
