@@ -2,6 +2,7 @@ import json
 import os
 
 import requests
+import time
 
 from exceptions.exceptions import ReturnInterrupt
 
@@ -42,7 +43,7 @@ def set_key(is_first_time=False):
             raise ReturnInterrupt('apiKey')
     with open(r'.\resource\config.json', 'r', encoding='utf-8') as file:
         config = json.load(file)
-    print('检查 API Key 中...', end='')
+    print('检查 API Key 中...')
     if not check_api_key(new_api_key, config['proxyUrl']):
         print(
             '\n\n您输入的 API Key 有误\n'

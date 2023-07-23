@@ -1,9 +1,9 @@
 {
   "version": "0.17.10",
-  "dev": "23JL240457",
+  "dev": "23JL240505",
   "author": [
     "MerePT"
   ],
   "license": "MIT",
-  "content": "1.修复请求报错问题"
+  "content": "1.修复请求报错问题\n2.修复检查 Key 时的提示问题"
 }
