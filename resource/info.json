@@ -1,9 +1,9 @@
 {
-  "version": "0.17.9",
-  "dev": "23JL2100309",
+  "version": "0.17.10",
+  "dev": "23JL240457",
   "author": [
     "MerePT"
   ],
   "license": "MIT",
-  "content": "1.检查 API Key 时，增加提示"
+  "content": "1.修复请求报错问题"
 }
