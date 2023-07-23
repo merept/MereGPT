@@ -79,6 +79,10 @@ if __name__ == '__main__':
     os.system('title MereGPT 更新中')
     try:
         requests.get(base_url)
-    except requests.exceptions.SSLError:
-        base_url = gitee_url
+    except Exception as e:
+        if 'HTTPSConnectionPool' in str(e.args[0]):
+            base_url = gitee_url
+        else:
+            print(f'更新失败\n出错: {e.args[0]}')
+            exit(0)
     main()

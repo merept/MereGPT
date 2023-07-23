@@ -19,7 +19,7 @@ def check_api_key(api_key, url):
         "messages": [{'role': 'user', 'content': 'test'}]
     }
     try:
-        response = requests.post(url, stream=True, headers=headers, json=data)
+        response = requests.post(url, headers=headers, json=data)
     except requests.exceptions.ConnectionError:
         return True
     if response.status_code == 401:

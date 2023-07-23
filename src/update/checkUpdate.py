@@ -89,9 +89,12 @@ def check_update_module(update_module_path):
     lh = local_hash(f'./{update_module_path}')
     try:
         oh = online_hash(f'{base_url}/{update_module_path}')
-    except requests.exceptions.SSLError:
-        base_url = gitee_url
-        oh = online_hash(f'{base_url}/{update_module_path}')
+    except Exception as e:
+        if 'HTTPSConnectionPool' in str(e.args[0]):
+            base_url = gitee_url
+            oh = online_hash(f'{base_url}/{update_module_path}')
+        else:
+            raise
     if lh != oh:
         update(update_module_path)
 

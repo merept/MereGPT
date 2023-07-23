@@ -62,8 +62,12 @@ if __name__ == '__main__':
 
     try:
         requestsModule.get(base_url)
-    except requestsModule.exceptions.SSLError:
-        base_url = gitee_url
+    except Exception as e:
+        if 'HTTPSConnectionPool' in str(e.args[0]):
+            base_url = gitee_url
+        else:
+            print(f'出错: {e.args[0]}\n回车键继续...')
+            input()
 
     check_base_file()
 
