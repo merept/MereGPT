@@ -20,7 +20,6 @@ class ChatRooms:
                 json.dump(self.__rooms_dict, file, indent=2, ensure_ascii=False)
         with open('./resource/rooms.json', 'r', encoding='utf-8') as file:
             self.__rooms_dict = json.load(file)
-        print(os.getcwd())
         with open('./resource/config.json', 'r', encoding='utf-8') as file:
             self.config = json.load(file)
         if not self.config['apiKey']:
