@@ -6,7 +6,7 @@ from utils import terminal
 
 
 def get_size(name):
-    path = fr'.\resource\chats\{name}.json'
+    path = f'./resource/chats/{name}.json'
     return os.path.getsize(path)
 
 
