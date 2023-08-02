@@ -13,7 +13,7 @@ def alternate_units(num, index=0):
 
 
 def get_size():
-    chats_path = r'.\resource\chats'
+    chats_path = './resource/chats'
     chats_list = os.listdir(chats_path)
     size = 0
     for chat_file in chats_list:
