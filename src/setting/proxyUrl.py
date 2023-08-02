@@ -14,7 +14,7 @@ def get_current_url(config):
 def set_url():
     terminal.clear_screen()
     terminal.change_title('配置代理地址')
-    with open(r'.\resource\config.json', 'r', encoding='utf-8') as file:
+    with open('./resource/config.json', 'r', encoding='utf-8') as file:
         config = json.load(file)
     print(f'当前代理地址: {get_current_url(config)}')
     new_url = input('请输入您的代理地址 > ')
@@ -22,5 +22,5 @@ def set_url():
         if not read.confirm('是否将代理地址设为默认?(Y/N)'):
             raise ReturnInterrupt('proxyUrl')
     config['proxyUrl'] = new_url
-    with open(r'.\resource\config.json', 'w', encoding='utf-8') as file:
+    with open('./resource/config.json', 'w', encoding='utf-8') as file:
         json.dump(config, file, ensure_ascii=False, indent=2)

@@ -7,7 +7,7 @@ from utils import *
 def change():
     terminal.clear_screen()
     terminal.change_title('获取测试版更新')
-    with open(r'.\resource\config.json', 'r', encoding='utf-8') as file:
+    with open('./resource/config.json', 'r', encoding='utf-8') as file:
         config = json.load(file)
         try:
             dev_now = config['dev']
@@ -21,5 +21,5 @@ def change():
         config['dev'] = not dev_now
     else:
         raise ReturnInterrupt('devEdition')
-    with open(r'.\resource\config.json', 'w', encoding='utf-8') as file:
+    with open('./resource/config.json', 'w', encoding='utf-8') as file:
         json.dump(config, file, ensure_ascii=False, indent=2)

@@ -110,7 +110,7 @@ class MereGPT:
             "records": self.records
         }
 
-        with open(fr'.\resource\chats\{self.path}.json', 'w', encoding='utf-8') as file:
+        with open(f'./resource/chats/{self.path}.json', 'w', encoding='utf-8') as file:
             json.dump(chat, file, indent=2, ensure_ascii=False)
 
     def change(self, new_name):

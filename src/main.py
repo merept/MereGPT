@@ -3,11 +3,12 @@ import os
 from service.menu import menu
 from setting.apiKey import set_key
 from exceptions.exceptions import ReturnInterrupt, ConfigError, Update
+from utils import terminal
 
 
 def main():
     try:
-        os.system('cls')
+        terminal.clear_screen()
         selection = -1
         while selection != 0:
             selection = menu()
@@ -25,6 +26,7 @@ def main():
 
 
 if __name__ == '__main__':
+    print(os.getcwd())
     if not os.path.exists(r'.\resource\chats'):
         os.mkdir(r'.\resource\chats')
     while True:

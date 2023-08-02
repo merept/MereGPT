@@ -40,7 +40,7 @@ def set_key(is_first_time=False):
             return
         else:
             raise ReturnInterrupt('apiKey')
-    with open(r'.\resource\config.json', 'r', encoding='utf-8') as file:
+    with open('./resource/config.json', 'r', encoding='utf-8') as file:
         config = json.load(file)
     print('检查 API Key 中...')
     if not check_api_key(new_api_key, config['proxyUrl']):
@@ -55,5 +55,5 @@ def set_key(is_first_time=False):
         else:
             raise ReturnInterrupt('apiKey')
     config['apiKey'] = new_api_key
-    with open(r'.\resource\config.json', 'w', encoding='utf-8') as file:
+    with open('./resource/config.json', 'w', encoding='utf-8') as file:
         json.dump(config, file, ensure_ascii=False, indent=2)

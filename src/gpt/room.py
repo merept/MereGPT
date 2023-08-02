@@ -14,20 +14,21 @@ class ChatRooms:
         return rooms
 
     def __init__(self):
-        if not os.path.exists(r'.\resource\rooms.json'):
+        if not os.path.exists('./resource/rooms.json'):
             self.__rooms_dict = []
-            with open(r'.\resource\rooms.json', 'w', encoding='utf-8') as file:
+            with open('./resource/rooms.json', 'w', encoding='utf-8') as file:
                 json.dump(self.__rooms_dict, file, indent=2, ensure_ascii=False)
-        with open(r'.\resource\rooms.json', 'r', encoding='utf-8') as file:
+        with open('./resource/rooms.json', 'r', encoding='utf-8') as file:
             self.__rooms_dict = json.load(file)
-        with open(r'.\resource\config.json', 'r', encoding='utf-8') as file:
+        print(os.getcwd())
+        with open('./resource/config.json', 'r', encoding='utf-8') as file:
             self.config = json.load(file)
         if not self.config['apiKey']:
             raise ConfigError('apiKey')
 
     def gpt(self, index):
         file_name = self.__rooms_dict[index]['file']
-        file_path = fr'.\resource\chats\{file_name}.json'
+        file_path = f'./resource/chats/{file_name}.json'
         with open(file_path, 'r', encoding='utf-8') as file:
             room = json.load(file)
         return MereGPT(room['name'], room['records'], file_name,
@@ -42,12 +43,12 @@ class ChatRooms:
         self.save()
 
     def save(self):
-        with open(r'.\resource\rooms.json', 'w', encoding='utf-8') as file:
+        with open('./resource/rooms.json', 'w', encoding='utf-8') as file:
             json.dump(self.__rooms_dict, file, indent=2, ensure_ascii=False)
 
     def delete(self, index):
         room = self.__rooms_dict.pop(index)
-        os.remove(fr'.\resource\chats\{room["file"]}.json')
+        os.remove(f'./resource/chats/{room["file"]}.json')
         self.save()
 
     def clear(self):
