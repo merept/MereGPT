@@ -6,7 +6,6 @@
   "src/service/changeName.py",
   "src/service/chat.py",
   "src/service/clearCache.py",
-  "src/service/confirm.py",
   "src/service/deleteChat.py",
   "src/service/menu.py",
   "src/service/newChat.py",
@@ -22,6 +21,9 @@
   "src/update/checkUpdate.py",
   "src/exceptions/__init__.py",
   "src/exceptions/exceptions.py",
+  "src/utils/__init__.py",
+  "src/utils/read.py",
+  "src/utils/terminal.py",
   "src/main.py",
   "src/checkModule.py",
   "resource/modules.json"

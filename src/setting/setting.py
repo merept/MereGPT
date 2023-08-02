@@ -1,9 +1,10 @@
 import json
+import os
 
 from exceptions.exceptions import ReturnInterrupt
-from . import model, apiKey, proxyUrl, devEdition
 from update import checkUpdate
-import os
+from utils import *
+from . import model, apiKey, proxyUrl, devEdition
 
 
 def check_dev_edition():
@@ -27,20 +28,6 @@ def check_version_content(app):
     raise ReturnInterrupt('versionContent')
 
 
-def select():
-    while True:
-        try:
-            s = input('请输入选项 > ')
-            if s == '':
-                raise ReturnInterrupt('setting')
-            s = int(s)
-            if 6 >= s >= 1:
-                return s
-        except ValueError:
-            pass
-        print('输入错误，请重新输入\n')
-
-
 def execute(s, app):
     if s == 1:
         model.select_model()
@@ -60,15 +47,15 @@ def execute(s, app):
 def main():
     if not os.path.exists('./resource/info.json') or not os.path.exists('./resource/config.json'):
         checkUpdate.main()
-        raise ReturnInterrupt()
+        raise ReturnInterrupt('setting')
     with open('./resource/info.json', 'r', encoding='utf-8') as file:
         app = json.load(file)
     while True:
         is_dev_edition = check_dev_edition()
         dev_info = f'测试版本: {app["dev"]}\n' if is_dev_edition else ''
         try:
-            os.system('cls')
-            os.system('title 设置')
+            terminal.clear_screen()
+            terminal.change_title('设置')
             print(f'{"-" * 50}\n'
                   '\n'
                   f'应用程序版本: v{app["version"]}\n'
@@ -83,7 +70,7 @@ def main():
                   '4.获取测试版更新\n'
                   '5.查看版本更新内容\n'
                   '6.检查更新(检查文件完整性)')
-            s = select()
+            s = read.select(6, name='setting')
             execute(s, app)
         except ReturnInterrupt as e:
             if e.args[0] == 'setting':
@@ -91,4 +78,4 @@ def main():
             else:
                 pass
         finally:
-            os.system('cls')
+            terminal.clear_screen()

@@ -1,26 +1,11 @@
 import json
-import os
 
-from exceptions.exceptions import ReturnInterrupt
-
-
-def select():
-    while True:
-        try:
-            s = input('请输入选项 > ')
-            if s == '':
-                raise ReturnInterrupt('model')
-            s = int(s)
-            if 2 >= s >= 1:
-                return s
-        except ValueError:
-            pass
-        print('输入错误，请重新输入\n')
+from utils import *
 
 
 def select_model():
-    os.system('cls')
-    os.system('title 配置 GPT 模型')
+    terminal.clear_screen()
+    terminal.change_title('配置 GPT 模型')
     models = ['gpt-3.5-turbo-0613', 'gpt-3.5-turbo-16k-0613']
     with open(r'.\resource\config.json', 'r', encoding='utf-8') as file:
         config = json.load(file)
@@ -28,7 +13,7 @@ def select_model():
     print(f'当前 GPT 模型: {model_now[:-5]}')
     print('1.gpt-3.5-turbo\n'
           '2.gpt-3.5-turbo-16k')
-    s = select()
+    s = read.select(2, name='model')
     model_new = models[s - 1]
     config['model'] = model_new
     with open(r'.\resource\config.json', 'w', encoding='utf-8') as file:

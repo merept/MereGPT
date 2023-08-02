@@ -1,10 +1,23 @@
 import json
 import os
+import sys
 
 import requests
 
 base_url = 'https://raw.githubusercontent.com/merept/MereGPT/master'
 gitee_url = 'https://gitee.com/merept/MereGPT/raw/master'
+
+
+def clear_screen():
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        os.system('clear')
+
+
+def change_title(title):
+    sys.stdout.write(f'\33]0;{title}\a')
+    sys.stdout.flush()
 
 
 def check_dev_edition():
@@ -73,10 +86,9 @@ def main():
 
 
 if __name__ == '__main__':
-    # os.chdir(r'..\..')
     check_dev_edition()
-    os.system('cls')
-    os.system('title MereGPT 更新中')
+    clear_screen()
+    change_title('MereGPT 更新中')
     try:
         requests.get(base_url)
     except Exception as e:

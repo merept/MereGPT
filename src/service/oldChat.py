@@ -2,6 +2,7 @@ import os
 
 from service.chat import chat
 from service.selectRoom import room_list
+from utils import terminal
 
 
 def get_size(name):
@@ -12,9 +13,9 @@ def get_size(name):
 def old_chat(chat_rooms):
     room = room_list(chat_rooms)
     gpt = chat_rooms.gpt(room)
-    os.system('cls')
+    terminal.clear_screen()
     records = gpt.records
-    os.system(f'title {gpt.name}')
+    terminal.change_title(gpt.name)
     print(f'当前聊天室: {gpt.name}')
     for r in records:
         prefix = '\n\033[32mUser\033[0m' if r['role'] == 'user' else '\033[34mGPT\033[0m'

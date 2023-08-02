@@ -1,23 +1,7 @@
-import os
-
-from exceptions.exceptions import ReturnInterrupt
 from gpt.room import ChatRooms
 from service import newChat, oldChat, changeName, deleteChat, clearCache
 from setting import setting
-
-
-def select():
-    while True:
-        try:
-            s = input('请输入选项 > ')
-            if s == '':
-                raise ReturnInterrupt('menu')
-            s = int(s)
-            if 6 >= s >= 0:
-                return s
-        except ValueError:
-            pass
-        print('输入错误，请重新输入\n')
+from utils import *
 
 
 def execute(s, chat_rooms):
@@ -37,7 +21,7 @@ def execute(s, chat_rooms):
 
 
 def menu():
-    os.system('title MereGPT')
+    terminal.change_title('MereGPT')
     chat_rooms = ChatRooms()
     line = '-' * 50
     print(f'{line}\n\n'
@@ -51,5 +35,5 @@ def menu():
           '5.清空聊天记录\n'
           '6.设置\n'
           '0.退出')
-    s = select()
+    s = read.select(6, min_val=0)
     return execute(s, chat_rooms)

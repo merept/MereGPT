@@ -1,10 +1,9 @@
 import json
-import os
 
 import requests
-import time
 
 from exceptions.exceptions import ReturnInterrupt
+from utils import terminal
 
 
 def check_api_key(api_key, url):
@@ -31,8 +30,8 @@ def check_api_key(api_key, url):
 
 
 def set_key(is_first_time=False):
-    os.system('cls')
-    os.system('title 配置 API Key')
+    terminal.clear_screen()
+    terminal.change_title('配置 API Key')
     if is_first_time:
         print('在开始前，您需要先配置您的 API Key')
     new_api_key = input('请输入您的 API Key > ')

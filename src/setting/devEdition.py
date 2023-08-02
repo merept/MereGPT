@@ -1,13 +1,12 @@
-import os
 import json
 
 from exceptions.exceptions import ReturnInterrupt
-from service.confirm import confirm
+from utils import *
 
 
 def change():
-    os.system('cls')
-    os.system('title 获取测试版更新')
+    terminal.clear_screen()
+    terminal.change_title('获取测试版更新')
     with open(r'.\resource\config.json', 'r', encoding='utf-8') as file:
         config = json.load(file)
         try:
@@ -18,7 +17,7 @@ def change():
     dev_now_str = "测试版" if dev_now else "发行版"
     dev_change_edi = "发行版" if dev_now else "测试版"
     print(f'当前更新获取的版本: {dev_now_str}')
-    if confirm(f'是否更改为{dev_change_edi}?(Y/N)'):
+    if read.confirm(f'是否更改为{dev_change_edi}?(Y/N)'):
         config['dev'] = not dev_now
     else:
         raise ReturnInterrupt('devEdition')

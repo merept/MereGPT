@@ -1,7 +1,6 @@
 from . import changeName
 from . import chat
 from . import clearCache
-from . import confirm
 from . import deleteChat
 from . import menu
 from . import newChat
