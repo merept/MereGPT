@@ -193,6 +193,9 @@ def main():
             oh = online_hash(f'{base_url}/{file}')
             if lh != oh:
                 updates.append(file)
+    except KeyboardInterrupt:
+        is_checking = False
+        raise ReturnInterrupt('checkUpdate')
     except Exception:
         is_checking = False
         raise
