@@ -1,6 +1,7 @@
 import os
 
 from exceptions.exceptions import ReturnInterrupt
+from gpt.room import ChatRooms
 from utils import *
 
 units = ('Bytes', 'KB', 'MB')
@@ -23,7 +24,7 @@ def get_size():
     return alternate_units(size)
 
 
-def clear(chat_rooms):
+def clear(chat_rooms: ChatRooms):
     terminal.clear_screen()
     terminal.change_title('清除聊天记录')
     print(f'当前占用空间 {get_size()}')

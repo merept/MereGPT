@@ -1,5 +1,6 @@
 import os
 
+from gpt.room import ChatRooms
 from service.chat import chat
 from service.selectRoom import room_list
 from utils import terminal
@@ -10,7 +11,7 @@ def get_size(name):
     return os.path.getsize(path)
 
 
-def old_chat(chat_rooms):
+def old_chat(chat_rooms: ChatRooms):
     room = room_list(chat_rooms)
     gpt = chat_rooms.gpt(room)
     terminal.clear_screen()

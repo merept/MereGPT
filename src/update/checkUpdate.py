@@ -41,14 +41,14 @@ def check_dev_edition():
         gitee_url = str.join('/', gitee_url_list)
 
 
-def online_hash(url):
+def online_hash(url: str):
     response = requests.get(url)
     sha = hashlib.sha256(response.content)
     response.close()
     return sha.hexdigest()
 
 
-def local_hash(path):
+def local_hash(path: str):
     if not os.path.exists(path):
         return ''
     sha = hashlib.sha256()
@@ -64,13 +64,11 @@ def checking():
     while is_checking:
         terminal.clear_screen()
         print(f'正在检查更新{loads[i]}')
-        i += 1
-        if i > 3:
-            i = 0
+        i = (i + 1) % 4
         sleep(0.5)
 
 
-def update(path):
+def update(path: str):
     l_file = f'./{path}'
     if os.path.exists(path):
         os.remove(l_file)
@@ -82,7 +80,7 @@ def update(path):
         file.write(o_file.content)
 
 
-def check_update_module(update_module_path):
+def check_update_module(update_module_path: str):
     global base_url
     global gitee_url
     lh = local_hash(f'./{update_module_path}')
@@ -98,14 +96,23 @@ def check_update_module(update_module_path):
         update(update_module_path)
 
 
-def check_json_file(json_file):
+def check_json_file(json_file: str):
     lh = local_hash(f'./{json_file}')
     oh = online_hash(f'{base_url}/{json_file}')
     if lh != oh:
         update(json_file)
 
 
-def check_info_file(info_file):
+def check_info_file(info_file: str) -> tuple[bool, dict, bool]:
+    """
+    检查是否有版本更新以及文件是否缺失
+
+    参数:
+        info_file - 版本信息文件路径
+
+    返回值:
+        tuple[bool, dict, bool]:[0]当版本不是最新是为True, [1]最新版本信息, [2]当出现大版本更新时为True
+    """
     lh = local_hash(f'./{info_file}')
     oh = online_hash(f'{base_url}/{info_file}')
     if lh == oh:
@@ -124,7 +131,7 @@ def check_info_file(info_file):
     return False, {}, False
 
 
-def check_config_file(config_file):
+def check_config_file(config_file: str):
     with open(f'./{config_file}', 'r') as file:
         local_config = json.load(file)
     response = requests.get(f'{base_url}/{config_file}')
@@ -134,7 +141,7 @@ def check_config_file(config_file):
             return True
 
 
-def confirm_update(msg, updates, info_file, online_info):
+def confirm_update(msg: str, updates: list, info_file: str, online_info: dict):
     if read.confirm(msg):
         with open('./src/update/updates.json', 'w', encoding='utf-8') as file:
             json.dump(updates, file, ensure_ascii=False)
@@ -145,7 +152,7 @@ def confirm_update(msg, updates, info_file, online_info):
         raise ReturnInterrupt('update')
 
 
-def big_version_update(info):
+def big_version_update(info: dict):
     base_file = ['resource/info.json', 'src/update/update.py', 'src/update/files.json']
     for bf in base_file[1:]:
         update(bf)

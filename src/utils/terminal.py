@@ -9,6 +9,6 @@ def clear_screen():
         os.system('clear')
 
 
-def change_title(title):
+def change_title(title: str):
     sys.stdout.write(f'\33]0;{title}\a')
     sys.stdout.flush()

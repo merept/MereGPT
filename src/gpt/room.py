@@ -25,7 +25,7 @@ class ChatRooms:
         if not self.config['apiKey']:
             raise ConfigError('apiKey')
 
-    def gpt(self, index):
+    def gpt(self, index: int):
         file_name = self.__rooms_dict[index]['file']
         file_path = f'./resource/chats/{file_name}.json'
         with open(file_path, 'r', encoding='utf-8') as file:
@@ -33,11 +33,11 @@ class ChatRooms:
         return MereGPT(room['name'], room['records'], file_name,
                        self.config['apiKey'], self.config['proxyUrl'], self.config['model'])
 
-    def append(self, new_room):
+    def append(self, new_room: dict):
         self.__rooms_dict.append(new_room)
         self.save()
 
-    def change(self, index, new_room):
+    def change(self, index: int, new_room: dict):
         self.__rooms_dict[index] = new_room
         self.save()
 
@@ -45,7 +45,7 @@ class ChatRooms:
         with open('./resource/rooms.json', 'w', encoding='utf-8') as file:
             json.dump(self.__rooms_dict, file, indent=2, ensure_ascii=False)
 
-    def delete(self, index):
+    def delete(self, index: int):
         room = self.__rooms_dict.pop(index)
         os.remove(f'./resource/chats/{room["file"]}.json')
         self.save()

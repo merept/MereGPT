@@ -9,6 +9,23 @@ from exceptions.exceptions import ConfigError
 
 
 class MereGPT:
+    """
+    包含一个聊天室所需所有信息，并可以调用 OpenAI API，向其发送信息
+
+    属性:
+        name - 聊天室名称
+        records - 聊天室的所有聊天记录
+        path - 聊天记录文件路径
+        api_key - OpenAI API key
+        url - 请求链接
+        model - 请求的 GPT 模型
+        room_info - 包含 name 及 path 属性的字典
+
+    方法:
+        send(record: str) - 向 OpenAI API 发送请求，请求信息为形参 record，并在终端打印响应信息
+        save() - 将聊天室的名称及聊天记录保存到 path 属性指向的文件路径
+        change(new_name: str) - 将聊天室的 name 属性更改为 new_name 并保存
+    """
     __default_url = 'https://api.openai.com/v1/chat/completions'
     __default_gpt = 'gpt-3.5-turbo-0613'
 
@@ -77,7 +94,7 @@ class MereGPT:
         print()
         self.__receive(result)
 
-    def send(self, record):
+    def send(self, record: str) -> None:
         self.records.append({"role": "user", "content": record})
 
         try:
@@ -113,7 +130,7 @@ class MereGPT:
         with open(f'./resource/chats/{self.path}.json', 'w', encoding='utf-8') as file:
             json.dump(chat, file, indent=2, ensure_ascii=False)
 
-    def change(self, new_name):
+    def change(self, new_name: str):
         self.name = new_name
         self.save()
 

@@ -1,9 +1,10 @@
 from exceptions.exceptions import ReturnInterrupt
+from gpt.room import ChatRooms
 from service.selectRoom import room_list
 from utils import *
 
 
-def delete(chat_rooms):
+def delete(chat_rooms: ChatRooms):
     terminal.clear_screen()
     terminal.change_title('删除聊天室')
     room = room_list(chat_rooms)

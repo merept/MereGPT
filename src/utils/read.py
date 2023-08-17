@@ -1,7 +1,7 @@
 from exceptions.exceptions import ReturnInterrupt
 
 
-def confirm(msg):
+def confirm(msg: str):
     s = input(msg).lower()
     while s != 'y':
         if s in ('n', ''):
@@ -11,7 +11,7 @@ def confirm(msg):
     return True
 
 
-def select(max_val, min_val=1, name='confirm'):
+def select(max_val: int, min_val=1, name='confirm'):
     while True:
         try:
             s = input('请输入选项 > ')

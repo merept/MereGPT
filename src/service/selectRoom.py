@@ -1,4 +1,5 @@
 from exceptions.exceptions import ReturnInterrupt
+from gpt.room import ChatRooms
 from utils import *
 
 
@@ -9,7 +10,7 @@ def none_records():
     raise ReturnInterrupt('selectRoom')
 
 
-def room_list(chat_rooms):
+def room_list(chat_rooms: ChatRooms):
     terminal.clear_screen()
     print('聊天室:')
     rooms = chat_rooms.rooms
