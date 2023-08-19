@@ -24,6 +24,7 @@
   "src/utils/__init__.py",
   "src/utils/read.py",
   "src/utils/terminal.py",
+  "src/utils/tokens.py",
   "src/main.py",
   "src/checkModule.py",
   "resource/modules.json"

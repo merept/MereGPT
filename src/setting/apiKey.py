@@ -6,6 +6,18 @@ from exceptions.exceptions import ReturnInterrupt
 from utils import terminal
 
 
+def get_total_tokens():
+    with open('./resource/config.json', 'r', encoding='utf-8') as file:
+        model = json.load(file)['model']
+        if '16k' in model:
+            billing = '$0.004 / 1K tokens'
+        else:
+            billing = '$0.002 / 1K tokens'
+    with open('./resource/rooms.json', 'r', encoding='utf-8') as file:
+        total_tokens = json.load(file)['total_tokens']
+    return billing, total_tokens
+
+
 def check_api_key(api_key, url):
     if not url:
         url = 'https://api.openai.com/v1/chat/completions'
@@ -29,11 +41,22 @@ def check_api_key(api_key, url):
     return True
 
 
+def clear_tokens_count():
+    with open('./resource/rooms.json', 'r', encoding='utf-8') as file:
+        rooms_dict = json.load(file)
+        rooms_dict['total_tokens'] = 0
+    with open('./resource/rooms.json', 'w', encoding='utf-8') as file:
+        json.dump(rooms_dict, file, ensure_ascii=False)
+
+
 def set_key(is_first_time=False):
     terminal.clear_screen()
     terminal.change_title('配置 API Key')
     if is_first_time:
         print('在开始前，您需要先配置您的 API Key')
+    else:
+        billing, total_tokens = get_total_tokens()
+        print(f'当前 API 用量: {total_tokens} tokens\n计费标准: {billing}\n')
     new_api_key = input('请输入您的 API Key > ')
     if new_api_key == '':
         if is_first_time:
@@ -57,3 +80,4 @@ def set_key(is_first_time=False):
     config['apiKey'] = new_api_key
     with open('./resource/config.json', 'w', encoding='utf-8') as file:
         json.dump(config, file, ensure_ascii=False, indent=2)
+    clear_tokens_count()

@@ -3,14 +3,18 @@ import json
 import os
 
 modules = {
-  "requests": {
-    "package": "requests",
-    "version": "2.30.0"
-  },
-  "sseclient": {
-    "package": "sseclient-py",
-    "version": "1.7.2"
-  }
+    "requests": {
+        "package": "requests",
+        "version": "2.30.0"
+    },
+    "sseclient": {
+        "package": "sseclient-py",
+        "version": "1.7.2"
+    },
+    "tiktoken": {
+        "package": "tiktoken",
+        "version": "0.4.0"
+    }
 }
 
 requestsModule = None

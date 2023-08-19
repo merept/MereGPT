@@ -3,7 +3,7 @@ import os
 from service.menu import menu
 from setting.apiKey import set_key
 from exceptions.exceptions import ReturnInterrupt, ConfigError, Update
-from utils import terminal
+from utils import terminal, tokens
 
 
 def main():
@@ -26,7 +26,8 @@ def main():
 
 
 if __name__ == '__main__':
-    print(os.getcwd())
+    print('正在启动 MereGPT...')
+    tokens.count('1')
     if not os.path.exists(r'.\resource\chats'):
         os.mkdir(r'.\resource\chats')
     while True:

@@ -6,6 +6,7 @@ import requests
 from sseclient import SSEClient
 
 from exceptions.exceptions import ConfigError
+from utils import tokens
 
 
 class MereGPT:
@@ -66,13 +67,20 @@ class MereGPT:
     def __check_length(self, reduce):
         if reduce < -20:
             reduce = -20
-        length = len(str(self.records[reduce:]))
-        if length >= 1024:
+        length = tokens.counts(self.records[reduce:])
+        if length >= 2048:
             return self.__check_length(reduce + 1)
         else:
             return reduce
 
-    def __receive(self, record):
+    def __receive(self, record, input_tokens: int):
+        output_tokens = tokens.count(record)
+        this_total_tokens = output_tokens + input_tokens
+        with open('./resource/rooms.json', 'r', encoding='utf-8') as file:
+            rooms_dict = json.load(file)
+            rooms_dict['total_tokens'] += this_total_tokens
+        with open('./resource/rooms.json', 'w', encoding='utf-8') as file:
+            json.dump(rooms_dict, file, indent=2, ensure_ascii=False)
         response = {
             'role': 'assistant',
             'content': record
@@ -80,7 +88,7 @@ class MereGPT:
         self.records.append(response)
         self.save()
 
-    def __print(self, client: SSEClient):
+    def __print(self, client: SSEClient, input_tokens: int):
         result = ''
         print('\033[34mGPT\033[0m > ', end='')
         for event in client.events():
@@ -92,20 +100,21 @@ class MereGPT:
                 result += content
                 print(content, end="", flush=True)
         print()
-        self.__receive(result)
+        self.__receive(result, input_tokens)
 
     def send(self, record: str) -> None:
         self.records.append({"role": "user", "content": record})
 
         try:
-            response = requests.post(self.url, stream=True, headers=self.__headers, json=self.__data)
+            data = self.__data
+            response = requests.post(self.url, stream=True, headers=self.__headers, json=data)
             client = SSEClient(response)
         except requests.exceptions.ConnectionError:
             del self.records[-1]
             raise ConnectionError('请求失败:\n网络连接超时，请检查网络')
 
         if response.status_code == 200:
-            self.__print(client)
+            self.__print(client, tokens.counts(data['messages']))
         elif response.status_code == 429:
             del self.records[-1]
             error_message = response.json()["error"]["message"]
