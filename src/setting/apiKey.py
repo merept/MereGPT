@@ -17,6 +17,8 @@ def get_total_tokens():
         total_tokens = json.load(file)['total_tokens']
         if total_tokens >= 10000:
             total_tokens = f'{total_tokens / 1000:.1f}K'
+        if total_tokens >= 1000000:
+            total_tokens = f'{total_tokens / 100000:.1f}M'
     return billing, total_tokens
 
 
