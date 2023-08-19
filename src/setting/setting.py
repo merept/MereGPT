@@ -4,7 +4,7 @@ import os
 from exceptions.exceptions import ReturnInterrupt
 from update import checkUpdate
 from utils import *
-from . import model, apiKey, proxyUrl, devEdition
+from . import model, apiKey, proxyUrl, devEdition, maxTokens
 
 
 def check_dev_edition():
@@ -36,10 +36,12 @@ def execute(s, app):
     elif s == 3:
         proxyUrl.set_url()
     elif s == 4:
-        devEdition.change()
+        maxTokens.set_tokens()
     elif s == 5:
-        check_version_content(app)
+        devEdition.change()
     elif s == 6:
+        check_version_content(app)
+    elif s == 7:
         checkUpdate.main()
     return s
 
@@ -67,10 +69,11 @@ def main():
                   '1.设置 GPT 模型\n'
                   '2.设置 API Key\n'
                   '3.设置代理地址\n'
-                  '4.获取测试版更新\n'
-                  '5.查看版本更新内容\n'
-                  '6.检查更新(检查文件完整性)')
-            s = read.select(6, name='setting')
+                  '4.设置上下文数量\n'
+                  '5.获取测试版更新\n'
+                  '6.查看版本更新内容\n'
+                  '7.检查更新(检查文件完整性)')
+            s = read.select(7, name='setting')
             execute(s, app)
         except ReturnInterrupt as e:
             if e.args[0] == 'setting':

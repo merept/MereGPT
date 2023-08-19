@@ -40,7 +40,7 @@ class ChatRooms:
         file_path = f'./resource/chats/{file_name}.json'
         with open(file_path, 'r', encoding='utf-8') as file:
             room = json.load(file)
-        return MereGPT(room['name'], room['records'], file_name,
+        return MereGPT(room['name'], room['records'], file_name, self.config['maxTokens'],
                        self.config['apiKey'], self.config['proxyUrl'], self.config['model'])
 
     def append(self, new_room: dict):

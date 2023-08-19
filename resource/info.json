@@ -1,9 +1,9 @@
 {
   "version": "0.17.13",
-  "dev": "23AU192356",
+  "dev": "23AU200046",
   "author": [
     "MerePT"
   ],
   "license": "MIT",
-  "content": "1.增加在配置 API Key 的界面显示已使用 tokens 数量的功能"
+  "content": "1.增加在配置 API Key 的界面显示已使用 tokens 数量的功能\n2.增加设置上下文数量"
 }

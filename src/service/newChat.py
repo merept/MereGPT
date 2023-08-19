@@ -7,6 +7,7 @@ from utils import terminal
 def new_chat(chat_rooms: ChatRooms):
     terminal.clear_screen()
     gpt = MereGPT(
+        max_tokens=chat_rooms.config['maxTokens'],
         api_key=chat_rooms.config['apiKey'],
         url=chat_rooms.config['proxyUrl'],
         model=chat_rooms.config['model']

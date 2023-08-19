@@ -31,11 +31,12 @@ class MereGPT:
     __default_gpt = 'gpt-3.5-turbo-0613'
 
     def __init__(self, name: str = None, records: list = None, path: str = None,
-                 api_key: str = None, url: str = None, model: str = None):
+                 max_tokens: int = 1024, api_key: str = None, url: str = None, model: str = None):
         self.name = name
         self.records = records
         self.path = path
         self.api_key = api_key
+        self.max_tokens = max_tokens
         self.url = url
         self.model = model
         self.this_time_tokens = 0
@@ -69,7 +70,7 @@ class MereGPT:
         if reduce < -20:
             reduce = -20
         length = tokens.counts(self.records[reduce:])
-        if length >= 1024:
+        if length >= self.max_tokens:
             return self.__check_length(reduce + 1)
         else:
             return reduce
