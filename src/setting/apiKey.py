@@ -15,6 +15,8 @@ def get_total_tokens():
             billing = '$0.002 / 1K tokens'
     with open('./resource/rooms.json', 'r', encoding='utf-8') as file:
         total_tokens = json.load(file)['total_tokens']
+        if total_tokens >= 10000:
+            total_tokens = f'{total_tokens / 1000:.1f}K'
     return billing, total_tokens
 
 
