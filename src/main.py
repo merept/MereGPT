@@ -37,6 +37,7 @@ if __name__ == '__main__':
         except ReturnInterrupt as e:
             message = e.args[0]
             if 'chat' in message:
-                last_time_tokens = message[4:]
+                m = message[4:]
+                last_time_tokens = m if m != '0' else ''
         except ConfigError:
             set_key(True)
