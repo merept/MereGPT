@@ -38,6 +38,6 @@ if __name__ == '__main__':
             message = e.args[0]
             if 'chat' in message:
                 m = message[4:]
-                last_time_tokens = m if m != '0' else ''
+                last_time_tokens = m if m != '0' else last_time_tokens
         except ConfigError:
             set_key(True)

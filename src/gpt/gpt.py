@@ -69,7 +69,7 @@ class MereGPT:
         if reduce < -20:
             reduce = -20
         length = tokens.counts(self.records[reduce:])
-        if length >= 2000:
+        if length >= 1024:
             return self.__check_length(reduce + 1)
         else:
             return reduce
