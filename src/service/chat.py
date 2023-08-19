@@ -7,7 +7,7 @@ def chat(gpt: MereGPT):
         user_input = input('\n\033[32mUser\033[0m > ')
         if user_input == '':
             gpt.save()
-            raise ReturnInterrupt('chat')
+            raise ReturnInterrupt(f'chat{gpt.this_time_tokens}')
         try:
             gpt.send(user_input)
         except ConnectionError as e:

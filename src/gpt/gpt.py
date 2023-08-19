@@ -38,6 +38,7 @@ class MereGPT:
         self.api_key = api_key
         self.url = url
         self.model = model
+        self.this_time_tokens = 0
 
     @property
     def room_info(self):
@@ -86,6 +87,7 @@ class MereGPT:
             'content': record
         }
         self.records.append(response)
+        self.this_time_tokens += this_total_tokens
         self.save()
 
     def __print(self, client: SSEClient, input_tokens: int):

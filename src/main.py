@@ -6,12 +6,12 @@ from exceptions.exceptions import ReturnInterrupt, ConfigError, Update
 from utils import terminal, tokens
 
 
-def main():
+def main(lt_tokens):
     try:
         terminal.clear_screen()
         selection = -1
         while selection != 0:
-            selection = menu()
+            selection = menu(lt_tokens)
         exit(0)
     except ReturnInterrupt:
         raise
@@ -22,7 +22,7 @@ def main():
     except Exception as e:
         print(f'出错: {e}\n按任意键继续...')
         input()
-        main()
+        main(lt_tokens)
 
 
 if __name__ == '__main__':
@@ -30,10 +30,13 @@ if __name__ == '__main__':
     tokens.count('1')
     if not os.path.exists(r'.\resource\chats'):
         os.mkdir(r'.\resource\chats')
+    last_time_tokens = ''
     while True:
         try:
-            main()
-        except ReturnInterrupt:
-            pass
+            main(last_time_tokens)
+        except ReturnInterrupt as e:
+            message = e.args[0]
+            if 'chat' in message:
+                last_time_tokens = message[4:]
         except ConfigError:
             set_key(True)
