@@ -16,6 +16,7 @@
   "src/setting/devEdition.py",
   "src/setting/model.py",
   "src/setting/proxyUrl.py",
+  "src/setting/maxTokens.py",
   "src/setting/setting.py",
   "src/update/__init__.py",
   "src/update/checkUpdate.py",
