@@ -22,6 +22,6 @@
 
 ## 继续使用旧版本
 
-旧版本是直接请求的 OpenAI 官方的 API，若想继续使用旧版本请 [点击这里](/merept/MereGPT/releases/tag/v0.17.13) 下载旧版本 (0.17.13) 发行版使用
+旧版本是直接请求的 OpenAI 官方的 API，若想继续使用旧版本请 [点击这里](../../releases/tag/v0.17.13) 下载旧版本 (0.17.13) 发行版使用
 
-旧版本使用方法 [点击这里](/merept/MereGPT/tree/openai-api) 查看
+旧版本使用方法 [点击这里](../openai-api) 查看
