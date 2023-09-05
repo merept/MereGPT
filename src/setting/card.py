@@ -75,7 +75,7 @@ def check_balance():
     response = json.loads(response.text)
     if response['code'] == '0':
         data = response['data']
-        print(f'剩余积分: {float(data["credit"]): .2f}\n'
+        print(f'剩余积分: {float(data["credit"]):.2f}\n'
               f'使用次数: {data["use_counts"]}\n'
               f'使用的 tokens: {get_tokens(data["use_tokens"])}\n'
               f'回车键返回上一级...', end='')
