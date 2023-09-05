@@ -4,7 +4,7 @@ import os
 from service.menu import menu
 from setting.apiKey import set_key
 from exceptions.exceptions import ReturnInterrupt, ConfigError, Update
-from utils import terminal, tokens
+from utils import terminal
 
 
 def main(lt_tokens):
@@ -20,8 +20,8 @@ def main(lt_tokens):
         raise
     except Update:
         exit(1)
-    except Exception as e:
-        print(f'出错: {e}\n按任意键继续...')
+    except Exception as ex:
+        print(f'出错: {ex}\n按任意键继续...')
         input()
         main(lt_tokens)
 

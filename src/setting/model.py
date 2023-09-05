@@ -10,7 +10,7 @@ def select_model():
     with open('./resource/config.json', 'r', encoding='utf-8') as file:
         config = json.load(file)
         model_now = config['model']
-    print(f'当前 GPT 模型: {model_now[:-5]}')
+    print(f'当前 GPT 模型: {model_now}')
     print('1.gpt-3.5-turbo\n'
           '2.gpt-3.5-turbo-16k')
     s = read.select(2, name='model')

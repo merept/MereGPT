@@ -1,9 +1,9 @@
 {
-  "version": "1.0.0",
-  "dev": "23SE051725",
+  "version": "1.0.1",
+  "dev": "23SE052115",
   "author": [
     "MerePT"
   ],
   "license": "MIT",
-  "content": "1.改用 OpenAI-SB API 进行聊天请求\n2.将会重置之前的 API Key, 新 API Key 的获取方式请访问下面的链接并根据教程获取\n\nAPI Key 获取教程: https://openai-sb.com/api/openai-sb/#api-key-%E8%8E%B7%E5%8F%96%E6%96%B9%E5%BC%8F"
+  "content": "1.优化了一些界面"
 }
