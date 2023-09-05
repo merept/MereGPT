@@ -9,6 +9,14 @@ from exceptions.exceptions import ReturnInterrupt
 api_key = ''
 
 
+def get_tokens(tokens):
+    if 1000000 > tokens >= 1000:
+        tokens = f'{tokens / 1000:.1f}K'
+    elif tokens >= 1000000:
+        tokens = f'{tokens / 1000000:.1f}M'
+    return tokens
+
+
 def recharge():
     terminal.clear_screen()
     terminal.change_title('卡密充值')
@@ -69,7 +77,7 @@ def check_balance():
         data = response['data']
         print(f'剩余积分: {float(data["credit"]): .2f}\n'
               f'使用次数: {data["use_counts"]}\n'
-              f'使用的 tokens: {data["use_tokens"]}\n'
+              f'使用的 tokens: {get_tokens(data["use_tokens"])}\n'
               f'回车键返回上一级...', end='')
         input()
         raise ReturnInterrupt('balance')
