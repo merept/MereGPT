@@ -27,8 +27,8 @@ class MereGPT:
         save() - 将聊天室的名称及聊天记录保存到 path 属性指向的文件路径
         change(new_name: str) - 将聊天室的 name 属性更改为 new_name 并保存
     """
-    __default_url = 'https://api.openai.com/v1/chat/completions'
-    __default_gpt = 'gpt-3.5-turbo-0613'
+    __default_url = 'https://api.openai-sb.com/v1/chat/completions'
+    __default_gpt = 'gpt-3.5-turbo'
 
     def __init__(self, name: str = None, records: list = None, path: str = None,
                  max_tokens: int = 1024, api_key: str = None, url: str = None, model: str = None):
@@ -69,18 +69,16 @@ class MereGPT:
     def __check_length(self, reduce):
         if reduce < -20:
             reduce = -20
-        length = tokens.counts(self.records[reduce:])
+        # length = tokens.counts(self.records[reduce:])
+        length = len(self.records[reduce:])
         if length >= self.max_tokens:
             return self.__check_length(reduce + 1)
         else:
             return reduce
 
-    def __receive(self, record, input_tokens: int):
-        output_tokens = tokens.count(record)
-        this_total_tokens = output_tokens + input_tokens
+    def __receive(self, record):
         with open('./resource/rooms.json', 'r', encoding='utf-8') as file:
             rooms_dict = json.load(file)
-            rooms_dict['total_tokens'] += this_total_tokens
         with open('./resource/rooms.json', 'w', encoding='utf-8') as file:
             json.dump(rooms_dict, file, indent=2, ensure_ascii=False)
         response = {
@@ -88,10 +86,9 @@ class MereGPT:
             'content': record
         }
         self.records.append(response)
-        self.this_time_tokens += this_total_tokens
         self.save()
 
-    def __print(self, client: SSEClient, input_tokens: int):
+    def __print(self, client: SSEClient):
         result = ''
         print('\033[34mGPT\033[0m > ', end='')
         for event in client.events():
@@ -103,7 +100,7 @@ class MereGPT:
                 result += content
                 print(content, end="", flush=True)
         print()
-        self.__receive(result, input_tokens)
+        self.__receive(result)
 
     def send(self, record: str) -> None:
         self.records.append({"role": "user", "content": record})
@@ -117,17 +114,17 @@ class MereGPT:
             raise ConnectionError('请求失败:\n网络连接超时，请检查网络')
 
         if response.status_code == 200:
-            self.__print(client, tokens.counts(data['messages']))
-        elif response.status_code == 429:
-            del self.records[-1]
-            error_message = response.json()["error"]["message"]
-            if 'rate limit' in error_message.lower():
-                raise ConnectionError("短时间内请求次数太多，请稍后 (一般为 20 秒) 重试。")
-            elif 'plan and billing details' in error_message.lower():
-                raise ConnectionError(
-                    "您的 API 用量已不足。\n请前往 OpenAI 官网检查您账户中订阅和计费的详细情况。")
-            else:
-                raise ConnectionError(f"请求失败: Error {response.status_code}\n{error_message}")
+            self.__print(client)
+        # elif response.status_code == 429:
+        #     del self.records[-1]
+        #     error_message = response.json()["error"]["message"]
+        #     if 'rate limit' in error_message.lower():
+        #         raise ConnectionError("短时间内请求次数太多，请稍后 (一般为 20 秒) 重试。")
+        #     elif 'plan and billing details' in error_message.lower():
+        #         raise ConnectionError(
+        #             "您的 API 用量已不足。\n请前往 OpenAI 官网检查您账户中订阅和计费的详细情况。")
+        #     else:
+        #         raise ConnectionError(f"请求失败: Error {response.status_code}\n{error_message}")
         else:
             del self.records[-1]
             error_message = response.json()["error"]["message"]

@@ -4,3 +4,4 @@ from . import apiKey
 from . import proxyUrl
 from . import devEdition
 from . import maxTokens
+from . import card

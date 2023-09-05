@@ -1,3 +1,4 @@
+import json
 import os
 
 from service.menu import menu
@@ -25,11 +26,21 @@ def main(lt_tokens):
         main(lt_tokens)
 
 
+def old_key():
+    with open('./resource/config.json', 'r', encoding='utf-8') as file:
+        config = json.load(file)
+    if config['apiKey'][:2] == 'sk':
+        config['apiKey'] = ''
+    with open('./resource/config.json', 'w', encoding='utf-8') as file:
+        json.dump(config, file, indent=2)
+
+
 if __name__ == '__main__':
     print('正在启动 MereGPT...')
-    tokens.count('1')
+    # tokens.count('1')
     if not os.path.exists(r'.\resource\chats'):
         os.mkdir(r'.\resource\chats')
+    old_key()
     last_time_tokens = ''
     while True:
         try:

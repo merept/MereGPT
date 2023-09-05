@@ -1,6 +1,10 @@
-# MereGPT
+# MereGPT 1.0
 
 闲的没事做的一个接入了 ChatGPT 的 Python 小程序
+
+1.0 版本后台是使用 [OpenAI-SB](https://openai-sb.com/) 的 API 进行请求的
+
+
 
 使用控制台方式运行的，后续应该会做 GUI 界面吧
 
@@ -10,4 +14,10 @@
 
 双击`run.bat`运行程序
 
-首次运行程序需要配置您自己的 API Key, 请自行在 OpenAI 官网获取
+首次运行程序需要配置您自己的 API Key
+
+### API Key 获取方式
+
+1. 需要 TG, [Telegram 🤖](https://t.me/openai_sb_bot) 发送 `/get_key` 指令获取 api_key
+
+2. 无需 TG (但需要 5 块钱), [购买地址](https://shop.openai-sb.cn/?code=YT00JmI9OQ%3D%3D) 购买 api_key

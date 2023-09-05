@@ -124,7 +124,7 @@ def check_info_file(info_file: str) -> tuple[bool, dict, bool]:
         return True, online_info, True
     with open(f'./{info_file}', 'r', encoding='utf-8') as file:
         local_info = json.load(file)
-    if int(online_info['version'].split('.')[1]) > int(local_info['version'].split('.')[1]):
+    if int(online_info['version'].split('.')[0]) > int(local_info['version'].split('.')[0]):
         return True, online_info, True
     if online_info['version'] != local_info['version'] or (is_dev_edition and online_info['dev'] != local_info['dev']):
         return True, online_info, False

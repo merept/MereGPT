@@ -1,7 +1,7 @@
 {
   "apiKey": "",
   "proxyUrl": "",
-  "model": "gpt-3.5-turbo-0613",
+  "model": "gpt-3.5-turbo",
   "maxTokens": 1024,
   "dev": false
 }

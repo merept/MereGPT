@@ -6,7 +6,7 @@ from utils import *
 def select_model():
     terminal.clear_screen()
     terminal.change_title('配置 GPT 模型')
-    models = ['gpt-3.5-turbo-0613', 'gpt-3.5-turbo-16k-0613']
+    models = ['gpt-3.5-turbo', 'gpt-3.5-turbo-16k']
     with open('./resource/config.json', 'r', encoding='utf-8') as file:
         config = json.load(file)
         model_now = config['model']

@@ -4,7 +4,7 @@ import os
 from exceptions.exceptions import ReturnInterrupt
 from update import checkUpdate
 from utils import *
-from . import model, apiKey, proxyUrl, devEdition, maxTokens
+from . import model, apiKey, card, devEdition, maxTokens
 
 
 def check_dev_edition():
@@ -34,7 +34,7 @@ def execute(s, app):
     elif s == 2:
         apiKey.set_key()
     elif s == 3:
-        proxyUrl.set_url()
+        card.main()
     elif s == 4:
         maxTokens.set_tokens()
     elif s == 5:
@@ -68,7 +68,7 @@ def main():
                   f'{"-" * 50}\n'
                   '1.设置 GPT 模型\n'
                   '2.设置 API Key\n'
-                  '3.设置代理地址\n'
+                  '3.API Key 余额与充值\n'
                   '4.设置上下文数量\n'
                   '5.获取测试版更新\n'
                   '6.查看版本更新内容\n'
