@@ -9,8 +9,8 @@ import requests
 from exceptions.exceptions import ReturnInterrupt, Update
 from utils import *
 
-base_url = 'https://raw.githubusercontent.com/merept/MereGPT/master'
-gitee_url = 'https://gitee.com/merept/MereGPT/raw/master'
+base_url = 'https://raw.githubusercontent.com/merept/MereGPT/opean-ai'
+gitee_url = 'https://gitee.com/merept/MereGPT/raw/opean-ai'
 
 is_dev_edition = False
 
@@ -172,7 +172,7 @@ def main():
     terminal.clear_screen()
     terminal.change_title('检查更新')
 
-    check_dev_edition()
+    # check_dev_edition()
 
     is_checking = True
     thread = Thread(target=checking, daemon=True)

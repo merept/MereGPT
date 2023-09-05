@@ -37,11 +37,11 @@ def execute(s, app):
         proxyUrl.set_url()
     elif s == 4:
         maxTokens.set_tokens()
+    # elif s == 5:
+    #     devEdition.change()
     elif s == 5:
-        devEdition.change()
-    elif s == 6:
         check_version_content(app)
-    elif s == 7:
+    elif s == 6:
         checkUpdate.main()
     return s
 
@@ -53,15 +53,15 @@ def main():
     with open('./resource/info.json', 'r', encoding='utf-8') as file:
         app = json.load(file)
     while True:
-        is_dev_edition = check_dev_edition()
-        dev_info = f'测试版本: {app["dev"]}\n' if is_dev_edition else ''
+        # is_dev_edition = check_dev_edition()
+        # dev_info = f'测试版本: {app["dev"]}\n' if is_dev_edition else ''
         try:
             terminal.clear_screen()
             terminal.change_title('设置')
             print(f'{"-" * 50}\n'
                   '\n'
                   f'应用程序版本: v{app["version"]}\n'
-                  f'{dev_info}'
+                  # f'{dev_info}'
                   f'作者: {app["author"][0]}\n'
                   f'许可证: {app["license"]}\n'
                   f'\n'
@@ -70,10 +70,10 @@ def main():
                   '2.设置 API Key\n'
                   '3.设置代理地址\n'
                   '4.设置上下文数量\n'
-                  '5.获取测试版更新\n'
-                  '6.查看版本更新内容\n'
-                  '7.检查更新(检查文件完整性)')
-            s = read.select(7, name='setting')
+                  # '5.获取测试版更新\n'
+                  '5.查看版本更新内容\n'
+                  '6.检查更新(检查文件完整性)')
+            s = read.select(6, name='setting')
             execute(s, app)
         except ReturnInterrupt as e:
             if e.args[0] == 'setting':

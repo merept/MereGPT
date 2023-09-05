@@ -4,8 +4,8 @@ import sys
 
 import requests
 
-base_url = 'https://raw.githubusercontent.com/merept/MereGPT/master'
-gitee_url = 'https://gitee.com/merept/MereGPT/raw/master'
+base_url = 'https://raw.githubusercontent.com/merept/MereGPT/opean-ai'
+gitee_url = 'https://gitee.com/merept/MereGPT/raw/opean-ai'
 
 
 def clear_screen():
@@ -86,7 +86,7 @@ def main():
 
 
 if __name__ == '__main__':
-    check_dev_edition()
+    # check_dev_edition()
     clear_screen()
     change_title('MereGPT 更新中')
     try:
