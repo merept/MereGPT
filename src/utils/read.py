@@ -11,10 +11,10 @@ def confirm(msg: str):
     return True
 
 
-def select(max_val: int, min_val=1, name='confirm'):
+def select(max_val: int, min_val=1, msg='请输入选项', name='confirm'):
     while True:
         try:
-            s = input('请输入选项 > ')
+            s = input(f'{msg} > ')
             if s == '':
                 raise ReturnInterrupt(name)
             s = int(s)

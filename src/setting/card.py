@@ -10,10 +10,8 @@ api_key = ''
 
 
 def get_tokens(tokens):
-    if 1000000 > tokens >= 1000:
-        tokens = f'{tokens / 1000:.1f}K'
-    elif tokens >= 1000000:
-        tokens = f'{tokens / 1000000:.1f}M'
+    if tokens >= 1000:
+        tokens = f'{tokens / 1000:,.2f}K'
     return tokens
 
 

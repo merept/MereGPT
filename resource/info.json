@@ -1,9 +1,9 @@
 {
-  "version": "1.0.1",
-  "dev": "23SE052115",
+  "version": "1.0.2",
+  "dev": "23SE0061930",
   "author": [
     "MerePT"
   ],
   "license": "MIT",
-  "content": "1.优化了一些界面"
+  "content": "1.优化了 tokens 计数显示\n2.修复了程序启动时可能因为网络问题导致无法正常启动的问题"
 }

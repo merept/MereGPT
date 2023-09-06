@@ -17,8 +17,8 @@ modules = {
     }
 }
 
+url_checked = False
 requestsModule = None
-files = []
 base_url = 'https://raw.githubusercontent.com/merept/MereGPT/master'
 gitee_url = 'https://gitee.com/merept/MereGPT/raw/master'
 
@@ -34,7 +34,23 @@ def check_third_party_module(name, info):
         print()
 
 
+def check_url():
+    global base_url, url_checked
+    try:
+        requestsModule.get(base_url)
+    except Exception as e:
+        if 'HTTPSConnectionPool' in str(e.args[0]):
+            base_url = gitee_url
+        else:
+            print(f'出错: {e.args[0]}\n回车键继续...')
+            input()
+    finally:
+        url_checked = True
+
+
 def fix(path):
+    if not url_checked:
+        check_url()
     l_file = f'./{path}'
     base_path = str.join('/', l_file.split('/')[:-1])
     if not os.path.exists(base_path):
@@ -63,15 +79,6 @@ if __name__ == '__main__':
     for key, value in modules.items():
         check_third_party_module(key, value)
     requestsModule = importlib.import_module('requests')
-
-    try:
-        requestsModule.get(base_url)
-    except Exception as e:
-        if 'HTTPSConnectionPool' in str(e.args[0]):
-            base_url = gitee_url
-        else:
-            print(f'出错: {e.args[0]}\n回车键继续...')
-            input()
 
     check_base_file()
 
