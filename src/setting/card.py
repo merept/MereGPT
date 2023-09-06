@@ -9,10 +9,9 @@ from exceptions.exceptions import ReturnInterrupt
 api_key = ''
 
 
-def get_tokens(tokens):
-    if tokens >= 1000:
-        tokens = f'{tokens / 1000:,.2f}K'
-    return tokens
+def get_tokens(key):
+    response = requests.get(f'https://api.openai-sb.com/sb-api/user/status?api_key={key}').json()
+    return response['data']["use_tokens"]
 
 
 def recharge():
@@ -62,6 +61,12 @@ def check_status():
         raise ReturnInterrupt('status')
 
 
+def transfer_tokens(tokens):
+    if tokens >= 1000:
+        tokens = f'{tokens / 1000:,.2f}K'
+    return tokens
+
+
 def check_balance():
     terminal.clear_screen()
     terminal.change_title('查询 API Key 余额')
@@ -70,7 +75,7 @@ def check_balance():
     terminal.clear_screen()
     if response['code'] == '0':
         data = response['data']
-        print(f'已使用: {get_tokens(data["use_tokens"])} tokens\n'
+        print(f'已使用: {transfer_tokens(data["use_tokens"])} tokens\n'
               f'剩余积分: {float(data["credit"]):.2f}\n'
               f'对话次数: {data["use_counts"]}\n'
               f'回车键返回上一级...', end='')

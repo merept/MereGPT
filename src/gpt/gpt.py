@@ -6,7 +6,7 @@ import requests
 from sseclient import SSEClient
 
 from exceptions.exceptions import ConfigError
-from utils import tokens
+from setting.card import get_tokens
 
 
 class MereGPT:
@@ -36,10 +36,10 @@ class MereGPT:
         self.records = records
         self.path = path
         self.api_key = api_key
-        self.max_tokens = max_tokens
+        self.__max_tokens = max_tokens
         self.url = url
         self.model = model
-        self.this_time_tokens = 0
+        self.__used_tokens = get_tokens(self.api_key)
 
     @property
     def room_info(self):
@@ -71,7 +71,7 @@ class MereGPT:
             reduce = -20
         # length = tokens.counts(self.records[reduce:])
         length = len(self.records[reduce:])
-        if length >= self.max_tokens:
+        if length >= self.__max_tokens:
             return self.__check_length(reduce + 1)
         else:
             return reduce
@@ -210,3 +210,7 @@ class MereGPT:
             self.__model = self.__default_gpt
         else:
             self.__model = value
+
+    @property
+    def this_time_tokens(self):
+        return get_tokens(self.api_key) - self.__used_tokens
