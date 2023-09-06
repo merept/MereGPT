@@ -13,6 +13,7 @@ def get_size(name):
 
 def old_chat(chat_rooms: ChatRooms):
     room = room_list(chat_rooms)
+    print('\n正在加载聊天室...', end='')
     gpt = chat_rooms.gpt(room)
     terminal.clear_screen()
     records = gpt.records
