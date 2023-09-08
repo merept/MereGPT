@@ -9,8 +9,8 @@ import requests
 from exceptions.exceptions import ReturnInterrupt, Update
 from utils import *
 
-base_url = 'https://raw.githubusercontent.com/merept/MereGPT/terminal'
-gitee_url = 'https://gitee.com/merept/MereGPT/raw/terminal'
+base_url = 'https://raw.githubusercontent.com/merept/MereGPT/master'
+gitee_url = 'https://gitee.com/merept/MereGPT/raw/master'
 
 is_dev_edition = False
 
