@@ -4,8 +4,8 @@ import sys
 
 import requests
 
-base_url = 'https://raw.githubusercontent.com/merept/MereGPT/terminal'
-gitee_url = 'https://gitee.com/merept/MereGPT/raw/terminal'
+base_url = 'https://raw.githubusercontent.com/merept/MereGPT/master'
+gitee_url = 'https://gitee.com/merept/MereGPT/raw/master'
 
 
 def clear_screen():
