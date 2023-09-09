@@ -49,6 +49,10 @@ class MereGPT:
         }
 
     @property
+    def this_time_tokens(self):
+        return get_tokens(self.api_key) - self.__used_tokens
+
+    @property
     def __headers(self):
         return {
             'Accept': 'text/event-stream',
@@ -210,7 +214,3 @@ class MereGPT:
             self.__model = self.__default_gpt
         else:
             self.__model = value
-
-    @property
-    def this_time_tokens(self):
-        return get_tokens(self.api_key) - self.__used_tokens
