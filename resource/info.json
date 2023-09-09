@@ -1,9 +1,9 @@
 {
-  "version": "1.0.2",
-  "dev": "23SE062000",
+  "version": "1.1.0",
+  "dev": "23SE092020",
   "author": [
     "MerePT"
   ],
   "license": "MIT",
-  "content": "1.优化了 tokens 计数显示\n2.修复了程序启动时可能因为网络问题导致无法正常启动的问题\n3.记录上次对话使用 tokens 的功能重新回归"
+  "content": "1.增加 GPT-4 模型"
 }
