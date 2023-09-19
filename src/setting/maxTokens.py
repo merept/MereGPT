@@ -23,7 +23,7 @@ def read_int(msg):
         print('输入错误，请输入一个整数\n')
 
 
-def set_tokens():
+def set_max_tokens():
     terminal.clear_screen()
     terminal.change_title('配置上下文数量')
     with open('./resource/config.json', 'r', encoding='utf-8') as file:

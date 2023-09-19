@@ -17,6 +17,8 @@ def error(res_msg, err_msg):
 
 def get_tokens(key):
     response = requests.get(f'https://api.openai-sb.com/sb-api/user/status?api_key={key}').json()
+    if response['code'] != '0':
+        error(f'\n{response["msg"]}', 'get_tokens')
     return response['data']["use_tokens"]
 
 
@@ -58,10 +60,10 @@ def gpt4():
         raise ReturnInterrupt('gpt4')
     print(f'当前 GPT 模型: {model_now}')
     print('\n'
-          '请注意:\n'
-          '对于普通用户，我们建议使用 GPT-3.5 而不是 GPT-4\n'
+          '\033[31m请注意！\033[0m\n'
+          '\033[33m对于普通用户，建议使用 GPT-3.5 而不是 GPT-4\n'
           '因为 GPT-4 的价格比 GPT-3.5 高出 157.5 ~ 315 倍\n'
-          '而且 GPT-3.5 的响应速度是 GPT-4 的四倍多')
+          '而且 GPT-3.5 的响应速度是 GPT-4 的四倍多\033[0m')
     if not read.confirm(f'\n是否切换到 GPT-4 ?(Y/N)'):
         raise ReturnInterrupt('gpt4')
     check_key_status()
@@ -82,10 +84,9 @@ def recharge():
     terminal.clear_screen()
     if response['code'] == '0':
         print(response["msg"])
-        if read.confirm('是否查询 API Key 余额?(Y/N)'):
-            check_balance()
-        else:
+        if not read.confirm('是否查询 API Key 余额?(Y/N)'):
             raise ReturnInterrupt('recharge')
+        check_balance()
     else:
         error(response['msg'], 'recharge')
 
@@ -127,8 +128,9 @@ def check_balance():
     terminal.clear_screen()
     if response['code'] == '0':
         data = response['data']
+        credit = float(data["credit"])
         print(f'已使用: {transfer_tokens(data["use_tokens"])} tokens\n'
-              f'剩余积分: {float(data["credit"]):.2f}\n'
+              f'剩余积分: {credit:.2f} (约 {credit/10000:.2f} 元)\n'
               f'对话次数: {data["use_counts"]}\n'
               f'回车键返回上一级...', end='')
         input()

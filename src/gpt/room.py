@@ -35,13 +35,13 @@ class ChatRooms:
         if not self.config['apiKey']:
             raise ConfigError('apiKey')
 
-    def gpt(self, index: int):
+    def gpt(self, index: int, chatting: bool = False):
         file_name = self.__rooms_dict['rooms'][index]['file']
         file_path = f'./resource/chats/{file_name}.json'
         with open(file_path, 'r', encoding='utf-8') as file:
             room = json.load(file)
         return MereGPT(room['name'], room['records'], file_name, self.config['maxTokens'],
-                       self.config['apiKey'], self.config['proxyUrl'], self.config['model'])
+                       self.config['apiKey'], self.config['proxyUrl'], self.config['model'], chatting)
 
     def append(self, new_room: dict):
         self.__rooms_dict['rooms'].append(new_room)

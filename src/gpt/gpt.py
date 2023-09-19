@@ -30,8 +30,8 @@ class MereGPT:
     __default_url = 'https://api.openai-sb.com/v1/chat/completions'
     __default_gpt = 'gpt-3.5-turbo'
 
-    def __init__(self, name: str = None, records: list = None, path: str = None,
-                 max_tokens: int = 1024, api_key: str = None, url: str = None, model: str = None):
+    def __init__(self, name: str = None, records: list = None, path: str = None, max_tokens: int = 1024,
+                 api_key: str = None, url: str = None, model: str = None, chatting: bool = False):
         self.name = name
         self.records = records
         self.path = path
@@ -39,7 +39,8 @@ class MereGPT:
         self.__max_tokens = max_tokens
         self.url = url
         self.model = model
-        self.__used_tokens = get_tokens(self.api_key)
+        if chatting:
+            self.__used_tokens = get_tokens(self.api_key)
 
     @property
     def room_info(self):

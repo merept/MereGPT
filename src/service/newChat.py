@@ -11,7 +11,8 @@ def new_chat(chat_rooms: ChatRooms):
         max_tokens=chat_rooms.config['maxTokens'],
         api_key=chat_rooms.config['apiKey'],
         url=chat_rooms.config['proxyUrl'],
-        model=chat_rooms.config['model']
+        model=chat_rooms.config['model'],
+        chatting=True
     )
     gpt.save()
     chat_rooms.append(gpt.room_info)

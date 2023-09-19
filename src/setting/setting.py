@@ -18,7 +18,7 @@ def check_dev_edition():
     return is_dev_edition
 
 
-def check_version_content(app):
+def get_version_content(app):
     os.system('cls')
     content = f'v{app["version"]} ({app["dev"]})\n' \
               f'更新内容:\n' \
@@ -38,11 +38,11 @@ def execute(s, app):
     elif s == 4:
         card.main()
     elif s == 5:
-        maxTokens.set_tokens()
+        maxTokens.set_max_tokens()
     elif s == 6:
         devEdition.change()
     elif s == 7:
-        check_version_content(app)
+        get_version_content(app)
     elif s == 8:
         checkUpdate.main()
     return s

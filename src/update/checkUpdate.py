@@ -142,14 +142,13 @@ def check_config_file(config_file: str):
 
 
 def confirm_update(msg: str, updates: list, info_file: str, online_info: dict):
-    if read.confirm(msg):
-        with open('./src/update/updates.json', 'w', encoding='utf-8') as file:
-            json.dump(updates, file, ensure_ascii=False)
-        with open(f'./{info_file}', 'w', encoding='utf-8') as file:
-            json.dump(online_info, file, indent=2, ensure_ascii=False)
-        raise Update('update')
-    else:
+    if not read.confirm(msg):
         raise ReturnInterrupt('update')
+    with open('./src/update/updates.json', 'w', encoding='utf-8') as file:
+        json.dump(updates, file, ensure_ascii=False)
+    with open(f'./{info_file}', 'w', encoding='utf-8') as file:
+        json.dump(online_info, file, indent=2, ensure_ascii=False)
+    raise Update('update')
 
 
 def big_version_update(info: dict):

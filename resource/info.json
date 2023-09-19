@@ -1,9 +1,9 @@
 {
-  "version": "1.1.0",
-  "dev": "23SE092020",
+  "version": "1.1.2",
+  "dev": "23SE192045",
   "author": [
     "MerePT"
   ],
   "license": "MIT",
-  "content": "1.增加 GPT-4 模型"
+  "content": "1.修复了删除聊天室和修改聊天室名称时，加载时间过长的问题\n2.优化了 API Key 余额的文本显示"
 }
