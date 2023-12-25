@@ -7,6 +7,7 @@ from sseclient import SSEClient
 
 from exceptions.exceptions import ConfigError
 from setting.card import get_tokens
+from utils.customizeString import CustomizeOption, customize_string
 
 
 class MereGPT:
@@ -29,6 +30,7 @@ class MereGPT:
     """
     __default_url = 'https://api.openai-sb.com/v1/chat/completions'
     __default_gpt = 'gpt-3.5-turbo'
+    __str_option = CustomizeOption()
 
     def __init__(self, name: str = None, records: list = None, path: str = None, max_tokens: int = 1024,
                  api_key: str = None, url: str = None, model: str = None, chatting: bool = False):
@@ -95,7 +97,7 @@ class MereGPT:
 
     def __print(self, client: SSEClient):
         result = ''
-        print('\033[34mGPT\033[0m > ', end='')
+        print(f'{customize_string("GPT", self.__str_option.BLUE)} > ', end='')
         for event in client.events():
             if event.data == '[DONE]':
                 break

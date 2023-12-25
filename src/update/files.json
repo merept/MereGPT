@@ -23,6 +23,7 @@
   "src/exceptions/__init__.py",
   "src/exceptions/exceptions.py",
   "src/utils/__init__.py",
+  "src/utils/customizeString.py",
   "src/utils/read.py",
   "src/utils/terminal.py",
   "src/utils/tokens.py",

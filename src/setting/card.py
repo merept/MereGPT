@@ -4,6 +4,7 @@ import os
 import requests
 
 from utils import read, terminal
+from utils.customizeString import CustomizeOption, customize_string
 from exceptions.exceptions import ReturnInterrupt
 
 api_key = ''
@@ -48,6 +49,7 @@ def check_key_status():
 
 def gpt4():
     global api_key
+    option = CustomizeOption()
     terminal.clear_screen()
     terminal.change_title('切换到 GPT-4')
     with open('./resource/config.json', 'r', encoding='utf-8') as file:
@@ -59,11 +61,12 @@ def gpt4():
         input()
         raise ReturnInterrupt('gpt4')
     print(f'当前 GPT 模型: {model_now}')
+    waring = '对于普通用户，建议使用 GPT-3.5 而不是 GPT-4\n'\
+        '因为 GPT-4 的价格比 GPT-3.5 高出 157.5 ~ 315 倍\n'\
+        '而且 GPT-3.5 的响应速度是 GPT-4 的四倍多'
     print('\n'
-          '\033[31m请注意！\033[0m\n'
-          '\033[33m对于普通用户，建议使用 GPT-3.5 而不是 GPT-4\n'
-          '因为 GPT-4 的价格比 GPT-3.5 高出 157.5 ~ 315 倍\n'
-          '而且 GPT-3.5 的响应速度是 GPT-4 的四倍多\033[0m')
+          f'{customize_string("请注意！", option.RED)}\n'
+          f'{customize_string(waring, option.YELLOW)}')
     if not read.confirm(f'\n是否切换到 GPT-4 ?(Y/N)'):
         raise ReturnInterrupt('gpt4')
     check_key_status()
