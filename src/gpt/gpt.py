@@ -30,7 +30,6 @@ class MereGPT:
     """
     __default_url = 'https://api.openai-sb.com/v1/chat/completions'
     __default_gpt = 'gpt-3.5-turbo'
-    __str_option = CustomizeOption()
 
     def __init__(self, name: str = None, records: list = None, path: str = None, max_tokens: int = 1024,
                  api_key: str = None, url: str = None, model: str = None, chatting: bool = False):
@@ -97,7 +96,7 @@ class MereGPT:
 
     def __print(self, client: SSEClient):
         result = ''
-        print(f'{customize_string("GPT", self.__str_option.BLUE)} > ', end='')
+        print(f'{customize_string("GPT", CustomizeOption.BLUE)} > ', end='')
         for event in client.events():
             if event.data == '[DONE]':
                 break

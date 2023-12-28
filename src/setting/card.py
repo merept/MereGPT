@@ -49,7 +49,6 @@ def check_key_status():
 
 def gpt4():
     global api_key
-    option = CustomizeOption()
     terminal.clear_screen()
     terminal.change_title('切换到 GPT-4')
     with open('./resource/config.json', 'r', encoding='utf-8') as file:
@@ -65,8 +64,8 @@ def gpt4():
         '因为 GPT-4 的价格比 GPT-3.5 高出 157.5 ~ 315 倍\n'\
         '而且 GPT-3.5 的响应速度是 GPT-4 的四倍多'
     print('\n'
-          f'{customize_string("请注意！", option.RED)}\n'
-          f'{customize_string(waring, option.YELLOW)}')
+          f'{customize_string("请注意！", CustomizeOption.RED)}\n'
+          f'{customize_string(waring, CustomizeOption.YELLOW)}')
     if not read.confirm(f'\n是否切换到 GPT-4 ?(Y/N)'):
         raise ReturnInterrupt('gpt4')
     check_key_status()
