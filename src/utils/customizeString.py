@@ -23,7 +23,7 @@ class CustomizeOption(Enum):
     BRIGHT_WHITE = "\033[97m"
 
 
-def customize_string(content: str, option):
+def customize_string(content: str, option: CustomizeOption) -> str:
     if option != CustomizeOption.RESET:
         return option.value + content + CustomizeOption.RESET.value
     return option.value + content
